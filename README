@@ -1,0 +1,7 @@
+Elevated Pitch: A new application that utilizes video resumes to better connect students with recruiters. 
+
+
+Dependencies:
+
+1. Most of the pods are installed but you have to install mailcore. It's already in the podfile so make the main directory 
+your working directory and type the command "pod install". This will install mailcore. This also means that you will have to have cocoaPods installed as well 
