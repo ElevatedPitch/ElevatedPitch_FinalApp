@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/Extensions.swift"
-            timestampString = "522819423.807722"
+            timestampString = "527720226.124252"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "loadImageUsingCacheWithURLString(urlString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/Extensions.swift"
-            timestampString = "522835535.922292"
+            timestampString = "527720226.124252"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "loadImageUsingCacheWithURLString(urlString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "526008801.018697"
+            timestampString = "527535323.558273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "436"
-            endingLineNumber = "436"
+            startingLineNumber = "613"
+            endingLineNumber = "613"
             landmarkName = "fetchMessengerUsers()"
             landmarkType = "7">
          </BreakpointContent>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "526008801.018697"
+            timestampString = "527535323.558273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "444"
-            endingLineNumber = "444"
+            startingLineNumber = "621"
+            endingLineNumber = "621"
             landmarkName = "fetchMessengerUsers()"
             landmarkType = "7">
          </BreakpointContent>
@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "526008801.018697"
+            timestampString = "527535323.558273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "447"
-            endingLineNumber = "447"
+            startingLineNumber = "624"
+            endingLineNumber = "624"
             landmarkName = "fetchMessengerUsers()"
             landmarkType = "7">
          </BreakpointContent>
@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "526008801.018697"
+            timestampString = "527535323.558273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "451"
-            endingLineNumber = "451">
+            startingLineNumber = "628"
+            endingLineNumber = "628">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -150,11 +150,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "526008801.018697"
+            timestampString = "527535323.558273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
+            startingLineNumber = "626"
+            endingLineNumber = "626"
             landmarkName = "fetchMessengerUsers()"
             landmarkType = "7">
          </BreakpointContent>
@@ -166,11 +166,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "525857541.613"
+            timestampString = "527535146.519827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -182,11 +182,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "525857541.613"
+            timestampString = "527535146.519827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -198,11 +198,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "525857541.613"
+            timestampString = "527535146.519827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -214,11 +214,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "525857541.613"
+            timestampString = "527535146.519827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -230,11 +230,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "526008801.018697"
+            timestampString = "527535232.162614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
+            startingLineNumber = "496"
+            endingLineNumber = "496"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -246,27 +246,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/MessagesController.swift"
-            timestampString = "526008801.018697"
+            timestampString = "527535232.162614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "InternTest/MessagesController.swift"
-            timestampString = "526008801.018697"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "498"
+            endingLineNumber = "498"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -383,11 +367,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/ChatController.swift"
-            timestampString = "525591652.177454"
+            timestampString = "527707888.061099"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "ChatController"
             landmarkType = "3">
          </BreakpointContent>
@@ -399,11 +383,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/ChatController.swift"
-            timestampString = "525591652.177454"
+            timestampString = "527707888.061099"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "ChatController"
             landmarkType = "3">
          </BreakpointContent>
@@ -478,11 +462,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/FeedController.swift"
-            timestampString = "526024629.407104"
+            timestampString = "527722403.262791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "717"
-            endingLineNumber = "717"
+            startingLineNumber = "1070"
+            endingLineNumber = "1070"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -526,11 +510,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/ChatController.swift"
-            timestampString = "525632015.196673"
+            timestampString = "527707888.061099"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "retrieveCurrentNameAndURL()"
             landmarkType = "7">
          </BreakpointContent>
@@ -632,11 +616,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/SearchViewController.swift"
-            timestampString = "524621511.606482"
+            timestampString = "527718436.94529"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "init(coder:)"
             landmarkType = "7">
             <Locations>
@@ -695,11 +679,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/SearchViewController.swift"
-            timestampString = "524621511.606482"
+            timestampString = "527718436.94529"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "genericCellButton"
             landmarkType = "3">
          </BreakpointContent>
@@ -711,11 +695,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/SetUpFreeTimeViewController.swift"
-            timestampString = "525857541.613"
+            timestampString = "527720883.564812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "SetUpFreeTimeViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -743,11 +727,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/SetUpFreeTimeViewController.swift"
-            timestampString = "525857541.613"
+            timestampString = "527720883.564812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "fetchReminders()"
             landmarkType = "7">
          </BreakpointContent>
@@ -945,11 +929,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/FeedController.swift"
-            timestampString = "526024629.407104"
+            timestampString = "527722403.262791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "749"
-            endingLineNumber = "749"
+            startingLineNumber = "1102"
+            endingLineNumber = "1102"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -961,11 +945,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/FeedController.swift"
-            timestampString = "526024629.407104"
+            timestampString = "527722403.262791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "750"
-            endingLineNumber = "750"
+            startingLineNumber = "1103"
+            endingLineNumber = "1103"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1025,11 +1009,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/ChatController.swift"
-            timestampString = "525857541.613"
+            timestampString = "527708286.210537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
             landmarkName = "handleSubmit()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1073,7 +1057,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/LandingPageViewController.swift"
-            timestampString = "524772871.453225"
+            timestampString = "527456529.915144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "186"
@@ -1089,7 +1073,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/LandingPageViewController.swift"
-            timestampString = "524772871.453225"
+            timestampString = "527456529.915144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "231"
@@ -1105,7 +1089,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/LandingPageViewController.swift"
-            timestampString = "524772871.453225"
+            timestampString = "527456529.915144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "266"
@@ -1121,7 +1105,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/LandingPageViewController.swift"
-            timestampString = "524309282.48038"
+            timestampString = "527456529.915144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
@@ -1137,7 +1121,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/LandingPageViewController.swift"
-            timestampString = "524309282.48038"
+            timestampString = "527456529.915144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "141"
@@ -1217,11 +1201,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/SetPasswordViewController.swift"
-            timestampString = "526537803.211834"
+            timestampString = "527314130.952581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1233,11 +1217,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/SetPasswordViewController.swift"
-            timestampString = "526537803.211834"
+            timestampString = "527314130.952581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1249,11 +1233,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/SetPasswordViewController.swift"
-            timestampString = "526537803.211834"
+            timestampString = "527314130.952581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1275,11 +1259,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/ChatController.swift"
-            timestampString = "525591652.177454"
+            timestampString = "527707888.061099"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "init(user:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1291,11 +1275,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/ChatController.swift"
-            timestampString = "525591652.177454"
+            timestampString = "527707888.061099"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "init(user:)"
             landmarkType = "7">
             <Locations>
@@ -1339,11 +1323,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/ProfilePageViewController.swift"
-            timestampString = "526437284.013098"
+            timestampString = "527563419.238624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "checkIfUserLoggedInAsStudent()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1355,11 +1339,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/LandingPageViewController.swift"
-            timestampString = "524520517.736065"
+            timestampString = "527441364.031482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "handleMoveToFeed()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1380,28 +1364,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "InternTest/SearchViewController.swift"
-            timestampString = "525857541.613"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "handleMoveToFullSearchForCompany()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "InternTest/CalendarViewController.swift"
-            timestampString = "526382451.239557"
+            timestampString = "527720426.57711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "createMastHead()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1413,11 +1381,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/SetUpFreeTimeViewController.swift"
-            timestampString = "525940968.567708"
+            timestampString = "527720883.564812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "481"
-            endingLineNumber = "481">
+            startingLineNumber = "625"
+            endingLineNumber = "625">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1459,28 +1427,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/LandingPageViewController.swift"
-            timestampString = "524772848.698048"
+            timestampString = "527456529.915144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
             endingLineNumber = "160"
             landmarkName = "keyboardWillHide()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "InternTest/ChatController.swift"
-            timestampString = "526006722.680492"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
-            landmarkName = "handleSubmit()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1498,22 +1450,6 @@
             endingLineNumber = "27"
             landmarkName = "ChatController"
             landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "InternTest/MessagesController.swift"
-            timestampString = "526008801.018697"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
-            landmarkName = "fetchMessengerUsers()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1648,11 +1584,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/StudentViewController.swift"
-            timestampString = "526020830.751847"
+            timestampString = "527723220.711197"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1067"
-            endingLineNumber = "1067"
+            startingLineNumber = "1062"
+            endingLineNumber = "1062"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1672,11 +1608,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/StudentViewController.swift"
-            timestampString = "526020738.753807"
+            timestampString = "527722403.262791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
             landmarkName = "moveToSchedule()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1752,11 +1688,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InternTest/CalendarViewController.swift"
-            timestampString = "526382451.239557"
+            timestampString = "527720426.57711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "fetchStudentTimes()"
             landmarkType = "7">
             <Locations>
@@ -1791,6 +1727,678 @@
                   offsetFromSymbolStart = "658">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/SetPasswordViewController.swift"
+            timestampString = "527314130.952581"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/ChatController.swift"
+            timestampString = "527707888.061099"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "fetchMessages()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.ChatController.(fetchMessages () -&gt; ()).(closure #1)"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/ChatController.swift"
+                  timestampString = "526978979.384097"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "151"
+                  endingLineNumber = "151"
+                  offsetFromSymbolStart = "1916">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.ChatController.(fetchMessages () -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/ChatController.swift"
+                  timestampString = "526978979.385481"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "152"
+                  endingLineNumber = "152"
+                  offsetFromSymbolStart = "27">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/ChatController.swift"
+            timestampString = "527707888.061099"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "fetchMessages()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.ChatController.(fetchMessages () -&gt; ()).(closure #1)"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/ChatController.swift"
+                  timestampString = "526978979.862576"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "151"
+                  endingLineNumber = "151"
+                  offsetFromSymbolStart = "1916">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.ChatController.(fetchMessages () -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/ChatController.swift"
+                  timestampString = "526978979.863912"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "152"
+                  endingLineNumber = "152"
+                  offsetFromSymbolStart = "27">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/MessagesController.swift"
+            timestampString = "527535146.519827"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "filterSearchText(searchText:scope:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/StudentScreenshotViewController.swift"
+            timestampString = "527180980.078725"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "StudentScreenshotViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.StudentScreenshotViewController.__deallocating_deinit"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/StudentScreenshotViewController.swift"
+                  timestampString = "527180980.606544"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.StudentScreenshotViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; InternTest.StudentScreenshotViewController"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/StudentScreenshotViewController.swift"
+                  timestampString = "527180980.608045"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "57">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.StudentScreenshotViewController.__allocating_init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; InternTest.StudentScreenshotViewController"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/StudentScreenshotViewController.swift"
+                  timestampString = "527180980.609496"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.StudentScreenshotViewController.__allocating_init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;InternTest.StudentScreenshotViewController&gt;"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/StudentScreenshotViewController.swift"
+                  timestampString = "527180980.611163"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.StudentScreenshotViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;InternTest.StudentScreenshotViewController&gt;"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/StudentScreenshotViewController.swift"
+                  timestampString = "527180980.612656"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/StudentScreenshotViewController.swift"
+            timestampString = "527201705.618996"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/FeedController.swift"
+            timestampString = "527722403.262791"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "881"
+            endingLineNumber = "881"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/FeedController.swift"
+            timestampString = "527718436.94529"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "FeedController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/FeedController.swift"
+            timestampString = "527722403.262791"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1036"
+            endingLineNumber = "1036"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/MessagesController.swift"
+            timestampString = "527535146.519827"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "filterSearchText(searchText:scope:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.MessagesController.filterSearchText (searchText : Swift.String, scope : Swift.String) -&gt; ()"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/MessagesController.swift"
+                  timestampString = "527487481.61435"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "418">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.MessagesController.(filterSearchText (searchText : Swift.String, scope : Swift.String) -&gt; ()).(closure #2)"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/MessagesController.swift"
+                  timestampString = "527487481.618607"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/MessagesController.swift"
+            timestampString = "527535146.519827"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "deleteMessages(row:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/VideoChooseViewController.swift"
+            timestampString = "527561826.503881"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/VideoChooseViewController.swift"
+            timestampString = "527537327.277732"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/ConfirmVideoViewController.swift"
+            timestampString = "527562615.476649"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "uploadToDatabase()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/AdvancedSearchViewController.swift"
+            timestampString = "527661603.68861"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "AdvancedSearchViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.AdvancedSearchViewController.__deallocating_deinit"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/AdvancedSearchViewController.swift"
+                  timestampString = "527661605.452118"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.AdvancedSearchViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; InternTest.AdvancedSearchViewController"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/AdvancedSearchViewController.swift"
+                  timestampString = "527661605.457079"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "57">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.AdvancedSearchViewController.__allocating_init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; InternTest.AdvancedSearchViewController"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/AdvancedSearchViewController.swift"
+                  timestampString = "527661605.46008"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.AdvancedSearchViewController.__allocating_init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;InternTest.AdvancedSearchViewController&gt;"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/AdvancedSearchViewController.swift"
+                  timestampString = "527661605.462676"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.AdvancedSearchViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;InternTest.AdvancedSearchViewController&gt;"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/AdvancedSearchViewController.swift"
+                  timestampString = "527661605.468282"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/AdvancedSearchViewController.swift"
+            timestampString = "527673816.433335"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/FeedController.swift"
+            timestampString = "527722403.262791"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
+            landmarkName = "fetchUsers()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/FeedController.swift"
+            timestampString = "527722403.262791"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "599"
+            endingLineNumber = "599"
+            landmarkName = "fetchUsers()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.FeedController.(fetchUsers () -&gt; ()).(closure #1)"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/FeedController.swift"
+                  timestampString = "527674106.373563"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "554"
+                  endingLineNumber = "554"
+                  offsetFromSymbolStart = "22710">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InternTest.FeedController.(fetchUsers () -&gt; ()).(closure #1)"
+                  moduleName = "InternTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rahul/Desktop/Iteration%20v7.0/InternTest/FeedController.swift"
+                  timestampString = "527674106.377882"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "554"
+                  endingLineNumber = "554"
+                  offsetFromSymbolStart = "44659">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/FeedController.swift"
+            timestampString = "527722403.262791"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "586"
+            endingLineNumber = "586"
+            landmarkName = "fetchUsers()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            symbolName = ""
+            moduleName = "">
+            <Locations>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.IDETestFailureBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            breakpointStackSelectionBehavior = "1">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            symbolName = "UIViewAlertForUnsatisfiableConstraints"
+            moduleName = "">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UIViewAlertForUnsatisfiableConstraints"
+                  moduleName = "UIKit"
+                  usesParentBreakpointCondition = "Yes"
+                  offsetFromSymbolStart = "0">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InternTest/FeedController.swift"
+            timestampString = "527719914.212381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
+            landmarkName = "handleNoButton(sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

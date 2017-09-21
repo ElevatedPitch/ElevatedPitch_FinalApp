@@ -127,6 +127,12 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    func moveToLinks() {
+        let segueController = StudentLinksViewController(nibName: nil, bundle: nil)
+        segueController.user = self.user!
+        present(segueController, animated: true, completion: nil)
+    }
+    
     func fetchReminders() {
         if (globalFeedString == "Employer") {
             let alert = UIAlertController(title: "Error", message: "This feature is for recruiters only", preferredStyle: .alert)
@@ -438,12 +444,7 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
                     if (dictionary["linkedInLink"] as! String? != nil) {
                         self.linkedInTap.urlString = (dictionary["linkedInLink"] as! String?)!
                     }
-                    if (dictionary["githubLink"] as! String? != nil) {
-                        self.githubTap.urlString = (dictionary["githubLink"] as! String?)!
-                    }
-                    if (dictionary["bruinViewLink"] as! String? != nil) {
-                        self.bruinTap.urlString = (dictionary["bruinViewLink"] as! String?)!
-                    }
+                    
                     
                     
                     
@@ -646,6 +647,10 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    func handleBackMove() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -730,6 +735,16 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
             messageIndividualButton.setImage(UIImage(named: "MessageIcon-1"), for: .normal)
             messageIndividualButton.addTarget(self, action: #selector(handleMoveToMessages), for: .touchUpInside)
             
+            let backButton = UIButton()
+            cell.addSubview(backButton)
+            backButton.translatesAutoresizingMaskIntoConstraints = false
+            backButton.leftAnchor.constraint(equalTo: cell.leftAnchor, constant: 10).isActive = true
+            backButton.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+            backButton.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+            backButton.widthAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+            backButton.setImage(UIImage(named: "arrowIcon"), for: .normal)
+            backButton.addTarget(self, action: #selector(handleBackMove), for: .touchUpInside)
+            backButton.contentEdgeInsets = UIEdgeInsetsMake( -3, -3, -3, -3)
             
             break
         case 1:
@@ -1003,24 +1018,6 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
             linkedInImageView.leftAnchor.constraint(equalTo: cell.leftAnchor, constant: 30).isActive = true
             
             
-            let githubImageView = UIImageView()
-            cell.addSubview(githubImageView)
-            githubImageView.translatesAutoresizingMaskIntoConstraints = false
-            githubImageView.leftAnchor.constraint(equalTo: linkedInImageView.leftAnchor).isActive = true
-            githubImageView.heightAnchor.constraint(equalTo: linkedInImageView.heightAnchor).isActive = true
-            githubImageView.widthAnchor.constraint(equalTo: linkedInImageView.widthAnchor).isActive = true
-            githubImageView.centerYAnchor.constraint(equalTo: linkedInImageView.centerYAnchor, constant: 200 / 4).isActive = true
-            githubImageView.image = UIImage(named: "githubLogo")
-            
-            let bruinImageView = UIImageView()
-            cell.addSubview(bruinImageView)
-            bruinImageView.translatesAutoresizingMaskIntoConstraints = false
-            bruinImageView.leftAnchor.constraint(equalTo: linkedInImageView.leftAnchor).isActive = true
-            bruinImageView.heightAnchor.constraint(equalTo: linkedInImageView.heightAnchor).isActive = true
-            bruinImageView.widthAnchor.constraint(equalTo: linkedInImageView.widthAnchor).isActive = true
-            bruinImageView.centerYAnchor.constraint(equalTo: githubImageView.centerYAnchor, constant: 200 / 4).isActive = true
-            bruinImageView.image = UIImage(named: "uclaLogo")
-            
             cell.addSubview(linkedInTap)
             linkedInTap.translatesAutoresizingMaskIntoConstraints = false
             linkedInTap.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true 
@@ -1030,32 +1027,30 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
             linkedInTap.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)
             linkedInTap.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
             
+            let changeButton = UIButton()
+            cell.addSubview(changeButton)
+            changeButton.translatesAutoresizingMaskIntoConstraints = false
+            changeButton.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            changeButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.65).isActive = true
+            changeButton.topAnchor.constraint(equalTo: linkedInTap.bottomAnchor, constant: 50).isActive = true
             
-            cell.addSubview(githubTap)
-            githubTap.translatesAutoresizingMaskIntoConstraints = false
-            githubTap.centerYAnchor.constraint(equalTo: githubImageView.centerYAnchor).isActive = true
-            githubTap.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-            githubTap.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)
-            githubTap.setTitle("Click Me", for: .normal)
-            githubTap.setTitleColor(UIColor.blue, for: .normal)
-            githubTap.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
-            
-            cell.addSubview(bruinTap)
-            bruinTap.translatesAutoresizingMaskIntoConstraints = false
-            bruinTap.centerYAnchor.constraint(equalTo: bruinImageView.centerYAnchor).isActive = true
-            bruinTap.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-            bruinTap.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)!
-            bruinTap.setTitle("Click Me", for: .normal)
-            bruinTap.setTitleColor(UIColor.blue, for: .normal)
-            bruinTap.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
+            changeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            changeButton.setTitle("Add More Links", for: .normal)
+            changeButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+            changeButton.setTitleColor(UIColor.white, for: .normal)
+            changeButton.layer.cornerRadius = 10
+            changeButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
+            changeButton.addTarget(self, action: #selector(moveToLinks), for: .touchUpInside)
             
 
+            
+          
             
             let reminderButton = UIButton()
             reminderButton.translatesAutoresizingMaskIntoConstraints = false
             cell.addSubview(reminderButton)
             reminderButton.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-            reminderButton.centerYAnchor.constraint(equalTo: bruinImageView.centerYAnchor, constant: 200 / 4).isActive  = true
+            reminderButton.centerYAnchor.constraint(equalTo: changeButton.centerYAnchor, constant: 200 / 4).isActive  = true
             reminderButton.widthAnchor.constraint(equalToConstant: cell.bounds.width / 2.5).isActive = true
             reminderButton.heightAnchor.constraint(equalToConstant: cell.bounds.height * 3 / 4).isActive = true
             

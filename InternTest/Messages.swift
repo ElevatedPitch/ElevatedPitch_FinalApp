@@ -17,4 +17,5 @@ class Messages: NSObject {
     var type: Int = 0
     var length: Int = 0
     var height: Int = 0
+    var timeStamp: Int = 0 
 }

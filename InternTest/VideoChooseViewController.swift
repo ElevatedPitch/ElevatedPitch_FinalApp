@@ -55,101 +55,127 @@ class VideoChooseViewController: UIViewController, UIImagePickerControllerDelega
             dismiss(animated: true, completion: nil)
             
             
-            let player = AVPlayer(url: (videoURL as URL))
             
-            let playerViewController = AVPlayerViewController()
-            playerViewController.player = player
+     
+            let segueController = ConfirmVideoViewController()
+            segueController.videoURL = videoURL.absoluteString
+            segueController.thumbnailImage = returnImage(fileURL: videoURL as NSURL)!
+            segueController.videoType = self.videoType!
+            present(segueController, animated: true, completion: nil)
             
-            present(playerViewController, animated: true) {
-                playerViewController.player!.play()
-                
-                
-            }
+//            
+//             let uid = FIRAuth.auth()?.currentUser?.uid
+//            
+//            
+//            var thumbnailString = String()
+//            var videoString = String()
+//            var videoThumbnail = String()
+//            switch self.videoType! {
+//            case 1:
+//                videoString = "userVideoURL"
+//                thumbnailString = "thumbnailImageURL"
+//                videoThumbnail = "firstVideo"
+//                break
+//            case 2:
+//                videoString = "experienceSupplementURL"
+//                thumbnailString = "experienceThumbnailImage"
+//                videoThumbnail = "experienceVideo"
+//                break
+//            case 3:
+//                videoString = "skillsSupplementURL"
+//                thumbnailString = "skillsThumbnailImage"
+//                videoThumbnail = "skillsThumbnail"
+//                break
+//            case 4:
+//                videoString = "extraSupplementURL"
+//                thumbnailString = "extraThumbnailImage"
+//                videoThumbnail = "extraThumbnail"
+//                break
+//            default:
+//                break
+//
+//            }
+//            let storageReference = FIRStorage.storage().reference().child(uid!).child(videoString)
+//            let ai = UIActivityIndicatorView()
+//            self.view.addSubview(ai)
+//            ai.startAnimating()
+//            ai.translatesAutoresizingMaskIntoConstraints = false
+//            ai.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//            ai.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+//            ai.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//            ai.widthAnchor.constraint(equalToConstant: 50).isActive = true
+//            ai.color = UIColor.black
+//            
+//            let label = UILabel()
+//            self.view.addSubview(label)
+//            label.translatesAutoresizingMaskIntoConstraints = false
+//            label.text = "Please wait..."
+//            label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//            label.centerYAnchor.constraint(equalTo: ai.bottomAnchor, constant: 20).isActive = true
+//            label.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 16)
+//            let uploadTask = storageReference.putFile(videoURL, metadata: nil, completion: { (metadata, error) in
+//              
+//                if (error == nil) {
+//                    print("successful upload")
+//                    
+//                } else {
+//                    print("Here is your error", error)
+//                }
+//                
+//                if let storageURL = metadata?.downloadURL()?.absoluteString {
+//                    print(videoString)
+//                    let value = [videoString: storageURL ]
+//                    print(storageURL, " This is the storageURL")
+//                    let ref = FIRDatabase.database().reference().child("users").child(uid!)
+//                    ref.updateChildValues(value)
+//                }
+//                
+//                
+//            })
+//            
+//            //Fix so it updates individual about the upload of their video
+//            let observe = uploadTask.observe(.progress, handler: { (snapshot) in
+//                let message = "\(snapshot.progress?.fractionCompleted)! * 100.0"
+//                print(message)
+//                if (snapshot.progress?.fractionCompleted == 1.0) {
+//                    print("Congrats")
+//                    ai.stopAnimating()
+//                    label.isHidden = true 
+//                    let alert = UIAlertController(title: "Congrats", message: "Video was successfully upload", preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (error) in
+//                        
+//                        self.handleMoveToProfile()
+//                        
+//                        
+//                        }))
+//                    self.present(alert, animated: true, completion: nil)
+//
+//                }
+//                
+//            })
+//            let thumbnailCGImage = returnImage(fileURL: videoURL as NSURL)
+//            
+//            
+//            let imageName = (videoThumbnail, uid)
+//            let ref = FIRStorage.storage().reference().child("\(imageName).png")
+//            if let uploadData = UIImagePNGRepresentation(thumbnailCGImage!) {
+//                ref.put(uploadData, metadata: nil , completion: { (metadata, error) in
+//                    if (error != nil) {
+//                        print(error)
+//                        return
+//                    }
+//                    if let thumbnailImageURL = metadata?.downloadURL()?.absoluteString {
+//                        let value = [thumbnailString : thumbnailImageURL]
+//                        let ref = FIRDatabase.database().reference().child("users").child(uid!)
+//                        ref.updateChildValues(value)
+//                    }
+//                    
+//                    
+//                })
+//                
+//                
             
-             let uid = FIRAuth.auth()?.currentUser?.uid
-            
-            
-            var thumbnailString = String()
-            var videoString = String()
-            var videoThumbnail = String()
-            switch self.videoType! {
-            case 1:
-                videoString = "userVideoURL"
-                thumbnailString = "thumbnailImageURL"
-                videoThumbnail = "firstVideo"
-                break
-            case 2:
-                videoString = "experienceSupplementURL"
-                thumbnailString = "experienceThumbnailImage"
-                videoThumbnail = "experienceVideo"
-                break
-            case 3:
-                videoString = "skillsSupplementURL"
-                thumbnailString = "skillsThumbnailImage"
-                videoThumbnail = "skillsThumbnail"
-                break
-            case 4:
-                videoString = "extraSupplementURL"
-                thumbnailString = "extraThumbnailImage"
-                videoThumbnail = "extraThumbnail"
-                break
-            default:
-                break
-
-            }
-            let storageReference = FIRStorage.storage().reference().child(uid!).child(videoString)
-
-            let uploadTask = storageReference.putFile(videoURL, metadata: nil, completion: { (metadata, error) in
-
-                if (error == nil) {
-                    print("successful upload")
-                    
-                } else {
-                    print("Here is your error", error)
-                }
-                
-                if let storageURL = metadata?.downloadURL()?.absoluteString {
-                    print(videoString)
-                    let value = [videoString: storageURL ]
-                    print(storageURL, " This is the storageURL")
-                    let ref = FIRDatabase.database().reference().child("users").child(uid!)
-                    ref.updateChildValues(value)
-                }
-                
-                
-            })
-            
-            //Fix so it updates individual about the upload of their video
-            let observe = uploadTask.observe(.progress, handler: { (snapshot) in
-                
-                let message = "\(snapshot.progress?.fractionCompleted)! * 100.0"
-                print(message)
-                
-                
-            })
-            let thumbnailCGImage = returnImage(fileURL: videoURL as NSURL)
-            
-            
-            let imageName = (videoThumbnail, uid)
-            let ref = FIRStorage.storage().reference().child("\(imageName).png")
-            if let uploadData = UIImagePNGRepresentation(thumbnailCGImage!) {
-                ref.put(uploadData, metadata: nil , completion: { (metadata, error) in
-                    if (error != nil) {
-                        print(error)
-                        return
-                    }
-                    if let thumbnailImageURL = metadata?.downloadURL()?.absoluteString {
-                        let value = [thumbnailString : thumbnailImageURL]
-                        let ref = FIRDatabase.database().reference().child("users").child(uid!)
-                        ref.updateChildValues(value)
-                    }
-                    
-                    
-                })
-                
-                
-                
-            }
+//            }
             
         }
         

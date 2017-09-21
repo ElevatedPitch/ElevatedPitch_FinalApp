@@ -64,8 +64,11 @@ class SetPasswordViewController: UIViewController {
                     
                 } else {
                 let uid = user?.uid
-                let dictionary = ["Name": self.curUser.name, "Email": self.curUser.email]
+                let value = NSString(string: "true")
+                let dictionary = ["Name": self.curUser.name, "Email": self.curUser.email] as [String : Any]
+                    let dictionary2 = ["FirstTimeSignUp": value, "FirstTimeConnect": value, "FirstTimeReject": value, "FirstTimeCalendar": value, "FirstTimeSearch": value]
                 FIRDatabase.database().reference().child("users").child(uid!).setValue(dictionary)
+                FIRDatabase.database().reference().child("users").child(uid!).child("HelpViews").updateChildValues(dictionary2)
 
                 let segueController = FeedController()
                 self.present(segueController, animated: true, completion: nil)
@@ -110,7 +113,8 @@ class SetPasswordViewController: UIViewController {
         backButton.widthAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
         backButton.setImage(UIImage(named: "arrowIcon"), for: .normal)
         backButton.addTarget(self, action: #selector(handleBackMove), for: .touchUpInside)
-        
+        backButton.contentEdgeInsets = UIEdgeInsetsMake( -3, -3, -3, -3)
+
 
         self.view.addSubview(password)
         password.translatesAutoresizingMaskIntoConstraints = false

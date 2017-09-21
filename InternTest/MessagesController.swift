@@ -12,18 +12,19 @@ import Firebase
 
 
 //This is where all of the people you can message show up. You're friends list per say. A table View with a view controller in the root view
-class MessagesController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MessagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate, UISearchResultsUpdating {
 
     
     //Initialization of variables.
     var tableView = UITableView()
     let uid = FIRAuth.auth()?.currentUser?.uid
     var userList = [User]()
-    var messageList = [Messages]()
     let cellID = "cellID"
     var curName: String?
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredUserList = [User]()
     
-    //Logout button takes you to beginning 
+    //Logout button takes you to beginning
     func handleLogout() {
         do {
             try FIRAuth.auth()?.signOut()
@@ -33,8 +34,13 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         let segueController = LandingPageViewController()
         present(segueController, animated: true, completion: nil)
     }
+    
+    class actionPress: UILongPressGestureRecognizer {
+        var row = Int()
+    }
     //Go back to the profile page
     func handlePrevious() {
+        killSearch()
         let segueController = ProfilePageViewController()
         present(segueController, animated: true, completion: nil)
         
@@ -42,6 +48,34 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
+    //Search
+    func updateSearchResults(for searchController: UISearchController) {
+        filterSearchText(searchText: searchController.searchBar.text!)
+    }
+    deinit {
+        self.searchController.view.removeFromSuperview()
+    }
+    
+    
+    
+    func filterSearchText (searchText: String, scope: String = "All") {
+        filteredUserList = userList.filter { user in
+            return user.name.lowercased().contains(searchText.lowercased())
+        }
+        
+        
+        
+        DispatchQueue.main.async {
+            
+            self.tableView.reloadData()
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        if searchController.isActive == true {
+            searchController.isActive = false 
+        }
+    }
     //Fetch Current name
     
     func fetchName() {
@@ -54,26 +88,30 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func handleNotifications() {
+        killSearch()
         let segueController = NotificationCenterViewController()
         present(segueController, animated: false, completion: nil)
     }
     //Go to search
     func handleMoveToSearch() {
+        killSearch()
         let segueController = SearchViewController(nibName: nil, bundle: nil)
         segueController.previousController = MessagesController()
         present(segueController, animated: false, completion: nil)
     }
     func moveToProfile(sender: UIButton) {
-        
+        killSearch()
         let segueController = ProfilePageViewController()
         present(segueController, animated: false, completion: nil)
     }
     func handleMoveToFeed() {
+        killSearch()
         let segueController = FeedController()
         present(segueController, animated: false, completion: nil)
         
     }
     func handleMoveToRecruiter() {
+        killSearch()
         if (globalFeedString == "Student") {
             
             let segueController = CalendarViewController()
@@ -87,6 +125,44 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
+    
+    func deleteMessages(row: Int) {
+        
+        
+        
+        var string1 = FIRAuth.auth()?.currentUser?.uid
+        string1?.append(" and ")
+        string1?.append(userList[row].uid)
+        var string2 = userList[row].uid
+        string2.append(" and ")
+        string2.append((FIRAuth.auth()?.currentUser?.uid)!)
+        
+        
+        let ref = FIRDatabase.database().reference().child("Relationships")
+            ref.observe(.value, with: { (snapshot) in
+            let dictionary = snapshot.value as! [String: AnyObject]
+                
+            if (dictionary[string1!] != nil) {
+                ref.child(string1!).child("messages").removeValue()
+                ref.removeAllObservers()
+            } else if (dictionary[string2] != nil)  {
+                ref.child(string2).child("messages").removeValue()
+                ref.removeAllObservers()
+            }
+        
+        
+        })
+        
+         FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("friends").child(userList[row].uid).child("lastMessage").removeValue()
+        FIRDatabase.database().reference().child("users").child(userList[row].uid).child("friends").child((FIRAuth.auth()?.currentUser?.uid)!).child("lastMessage").removeValue()
+        userList.remove(at: row)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            
+        }
+
+        
+    }
     func createMastHead() {
         self.view.backgroundColor = UIColor(red: (0/255.0), green: (204/255.0), blue: (255/255.0), alpha: 1)
         let gradientLayer = CAGradientLayer()
@@ -106,7 +182,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         titleLabel.textColor = UIColor.white
         titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -10).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -60).isActive = true
         let searchIcon = UIButton()
         self.view.addSubview(searchIcon)
         searchIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -206,7 +282,16 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         
         fetchMessengerUsers()
         
-//       //Create a navigation bar (not preferred style tho. Better if you just adjust the bounds of your table View to include portions of the view controller
+        
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.searchBarStyle = .minimal
+        self.searchController.searchBar.frame.size.width = self.view.frame.size.width * 0.85
+        searchController.isActive = false
+        searchController.searchBar.barTintColor = UIColor.white
+        
+        //       //Create a navigation bar (not preferred style tho. Better if you just adjust the bounds of your table View to include portions of the view controller
 //        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height:44)) // Offset by 20 pixels vertically to take the status bar into account
 //        
 //        navigationBar.backgroundColor = UIColor.white
@@ -242,9 +327,22 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60).isActive = true
-        
+        tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 110).isActive = true
         createMastHead()
+        
+        let containerView = UIView()
+        self.view.addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        containerView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        containerView.backgroundColor = UIColor.white
+        
+        containerView.addSubview(searchController.searchBar)
+        
+        
+        
     }
     
     
@@ -252,14 +350,20 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    func killSearch() {
+        if (searchController.isActive == true) {
+            searchController.isActive = false
+        }
+    }
     
     //Move to messages and make sure the back button works
     func HandleSendToMessages(sender: AnyObject? ) {
+        killSearch()
         let time = NSNumber(value: (sender?.user.timeStamp)!)
         let updateValue = ["Last Message": sender!.user.lastMessage as AnyObject, "Sending Name": sender!.user.lastSender as AnyObject, "Read": "True" as AnyObject, "timeStamp": time] as [String : AnyObject]
         
-        let ref3 = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("friends").child((sender!.user.uid))
-        let ref4 = FIRDatabase.database().reference().child("users").child((sender!.user.uid)).child("friends").child((FIRAuth.auth()?.currentUser?.uid)!)
+        let ref3 = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("friends").child((sender!.user.uid)).child("lastMessage")
+        let ref4 = FIRDatabase.database().reference().child("users").child((sender!.user.uid)).child("friends").child((FIRAuth.auth()?.currentUser?.uid)!).child("lastMessage")
         ref3.setValue(updateValue)
         ref4.setValue(updateValue)
         sender?.user.previousController = MessagesController()
@@ -272,24 +376,74 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         var user = User()
     }
     
+    func handleDownPress(sender: actionPress) {
+        
+        let alert = UIAlertController(title: "Message" , message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Delete ", style: .destructive, handler: { (alert) in
+            self.deleteMessages(row: sender.row)
+            
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if (searchController.isActive && searchController.searchBar.text != "") {
+            return filteredUserList.count + 1
+        }
         return userList.count + 1
     }
 
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
+        
+        if (indexPath.row == 0) {
             return 50
-        default:
-            return 75
         }
+        return 75
     }
     
-
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            
+        
+            deleteMessages(row: indexPath.row - 1)
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }
+        }
+        
+        
+    }
+    
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let user = userList[indexPath.row - 1]
+    killSearch()
+    let time = NSNumber(value: (user.timeStamp))
+    let updateValue = ["Last Message": user.lastMessage as AnyObject, "Sending Name": user.lastSender as AnyObject, "Read": "True" as AnyObject, "timeStamp": time] as [String : AnyObject]
+    
+    let ref3 = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("friends").child(user.uid).child("lastMessage")
+    let ref4 = FIRDatabase.database().reference().child("users").child((user.uid)).child("friends").child((FIRAuth.auth()?.currentUser?.uid)!).child("lastMessage")
+    ref3.setValue(updateValue)
+    ref4.setValue(updateValue)
+    user.previousController = MessagesController()
+    let segueController = ChatController(user: user )
+    present(segueController, animated: true, completion: nil)
+    
+    }
+    
+   
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
@@ -304,71 +458,84 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             messagesLabel.font = UIFont(name: "AppleSDGothicNeo", size: 20)
             cell.selectionStyle = .none
             return cell
-        } else {
+        }  else {
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellID)
         let cellLabel = UILabel()
         let cellImageView = UIImageView()
         let cellButton = GenericCellButton()
         let lastMessage = UILabel()
-        
+        let timeStamp = UILabel()
+        cell.selectionStyle = .none
 
         cell.addSubview(cellButton)
         cell.addSubview(cellLabel)
         cell.addSubview(cellImageView)
         cell.addSubview(lastMessage)
-        
+        cell.addSubview(timeStamp)
         //This is the profilePicture image view 
-            if (userList.count != 0) {
+            var list = [User]()
+            if (searchController.isActive == true && searchController.searchBar.text != "") {
+                list = filteredUserList
+            } else {
+               list = userList
+            }
+            if (list.count != 0) {
+                
+                
         cellImageView.translatesAutoresizingMaskIntoConstraints = false
         cellImageView.centerXAnchor.constraint(equalTo: cell.leftAnchor, constant: 40).isActive = true
         cellImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         cellImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         cellImageView.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
         
-        cellImageView.image = userList[indexPath.row - 1].imageView?.image
+        cellImageView.image = list[indexPath.row - 1].imageView?.image
         cellImageView.layer.cornerRadius = 20
         cellImageView.layer.masksToBounds = true
 
         //This is the name of the user 
         
-        cellLabel.text = userList[indexPath.row - 1].name
+        cellLabel.text = list[indexPath.row - 1].name
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
         cellLabel.topAnchor.constraint(equalTo: cellImageView.topAnchor).isActive = true
         cellLabel.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 10).isActive = true
         cellLabel.widthAnchor.constraint(equalToConstant: 75).isActive = true
         
-        
-        //The cell button takes you to the messages with the current users.
-        cellButton.user = userList[indexPath.row - 1]
-        cellButton.setTitle("Message", for: .normal)
-        cellButton.translatesAutoresizingMaskIntoConstraints = false
-        cellButton.rightAnchor.constraint(equalTo: cell.rightAnchor).isActive = true
-        cellButton.leftAnchor.constraint(equalTo: cell.leftAnchor).isActive = true
-        cellButton.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
-        cellButton.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
-        cellButton.backgroundColor = UIColor.clear
-        cellButton.layer.cornerRadius = 5
-        cellButton.layer.masksToBounds = true
-        cellButton.addTarget(self, action: #selector(HandleSendToMessages), for: .touchUpInside)
-        
+                
+       
+    
+                let longRecognizer = actionPress(target: self, action: #selector(handleDownPress))
+                longRecognizer.row = indexPath.row - 1
+        cell.addGestureRecognizer(longRecognizer)
         
         lastMessage.translatesAutoresizingMaskIntoConstraints = false
-        lastMessage.text = userList[indexPath.row - 1].lastMessage
+        lastMessage.text = list[indexPath.row - 1].lastMessage
         lastMessage.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
         lastMessage.widthAnchor.constraint(equalToConstant: cell.bounds.width * 0.7).isActive = true
         lastMessage.leftAnchor.constraint(equalTo: cellLabel.leftAnchor).isActive = true
         lastMessage.heightAnchor.constraint(equalToConstant: 50).isActive = true
         lastMessage.textColor = UIColor.black
+        if (list[indexPath.row - 1].timeStamp == Double.greatestFiniteMagnitude) {
+            timeStamp.text = ""
+        } else {
+        let value = 0 - (list[indexPath.row - 1].timeStamp / 1000)
+        let date = Date(timeIntervalSince1970: value)
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        timeStamp.text = formatter.string(from: date)
+            }
+        timeStamp.translatesAutoresizingMaskIntoConstraints = false
+        timeStamp.centerYAnchor.constraint(equalTo: lastMessage.centerYAnchor).isActive = true
+        timeStamp.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -20).isActive = true
         
-
-                if (userList[indexPath.row - 1].read) {
+                if (list[indexPath.row - 1].read) {
                     cellLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
                     lastMessage.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 16)
-
+                    timeStamp.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 16)
                 } else {
                     cellLabel.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 16)
                     lastMessage.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 16)
+                    timeStamp.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 16)
                 }
         // Configure the cell...
             }
@@ -393,16 +560,26 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                     
                         
                     let user = User()
-                        if (dictionary["Last Message"] as? String != nil) {
-                    user.lastMessage = dictionary["Last Message"] as! String
-                    user.lastSender = dictionary["Sending Name"] as! String
-                            if (dictionary["timeStamp"] as? Double != nil) {
-                                user.timeStamp = dictionary["timeStamp"] as! Double
+            if (dictionary["lastMessage"] != nil) {
+                let dict2 = dictionary["lastMessage"] as! [String: AnyObject]
+                        
+                if (dict2["Last Message"] as? String != nil) {
+                    user.lastMessage = dict2["Last Message"] as! String
+                    user.lastSender = dict2["Sending Name"] as! String
+                            if (dict2["timeStamp"] as? Double != nil) {
+                                user.timeStamp = dict2["timeStamp"] as! Double
+                            } else {
+                                user.timeStamp = Double.greatestFiniteMagnitude
                             }
-                            if (dictionary["Read"] as? String == "False" && dictionary["Sending Name"] as? String != self.uid) {
+                            if (dict2["Read"] as? String == "False" && dict2["Sending Name"] as? String != self.uid) {
                                 user.read = false
                             }
                         }
+            } else {
+                user.timeStamp = Double.greatestFiniteMagnitude
+                        }
+                        
+                    
                     user.uid = snapshot.key
                         let dictionary2 = snapshot.value as! [String:AnyObject]
                         
@@ -418,11 +595,11 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                         
                         
                         self.userList.append(user)
-                        self.userList.sort(by:  ({$0.timeStamp < $1.timeStamp}))
 
 
                     }
                     DispatchQueue.main.async {
+                        self.userList.sort(by:  ({$0.timeStamp < $1.timeStamp}))
 
                         self.tableView.reloadData()
                         

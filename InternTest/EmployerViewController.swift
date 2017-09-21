@@ -133,6 +133,10 @@ class EmployerViewController: UIViewController, UITableViewDelegate, UITableView
         })
 
     }
+    
+    func handleBackMove() {
+        dismiss(animated: true, completion: nil)
+    }
 
 
     func handleMoveToSearch() {
@@ -381,6 +385,18 @@ class EmployerViewController: UIViewController, UITableViewDelegate, UITableView
             messageIndividualButton.setImage(UIImage(named: "MessageIcon-1"), for: .normal)
             messageIndividualButton.addTarget(self, action: #selector(handleMoveToMessages), for: .touchUpInside)
             
+            let backButton = UIButton()
+            cell.addSubview(backButton)
+            backButton.translatesAutoresizingMaskIntoConstraints = false
+            backButton.leftAnchor.constraint(equalTo: cell.leftAnchor, constant: 10).isActive = true
+            backButton.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+            backButton.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+            backButton.widthAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+            backButton.setImage(UIImage(named: "arrowIcon"), for: .normal)
+            backButton.addTarget(self, action: #selector(handleBackMove), for: .touchUpInside)
+            backButton.contentEdgeInsets = UIEdgeInsetsMake( -3, -3, -3, -3)
+            
+
             
             break
         case 1:

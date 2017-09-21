@@ -1,46 +1,51 @@
 //
-//  FullSearchViewController.swift
+//  AddLinkViewController.swift
 //  InternTest
 //
-//  Created by Rahul Sheth on 7/12/17.
+//  Created by Rahul Sheth on 9/12/17.
 //  Copyright © 2017 Rahul Sheth. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Firebase
-
-class FullSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class StudentLinksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var user = User()
     
-    //INITIALIZATION OF VARIABLES
-    
-    var itemList = [AnyObject]()
-    var tableView = UITableView()
-    var isItemAUser: Bool?
-    var typeInt: Int?
-    
-    
-    class genericCellButton: UIButton {
-        var passedString: String?
+    class Link: NSObject {
+        var titleString = String()
+        var urlString = String()
         
     }
     
-    
-    //-------------------------------------------------------------------------------------------
-    //HELPER FUNCTIONS AND VIEW DID LOAD 
-    
-    //Move back to Feed with the value you want
-    func handleMoveToFeed(sender: genericCellButton) {
-        let segueController = FeedController(nibName: nil, bundle: nil)
-        segueController.passedInInt = typeInt
-        segueController.passedInString = sender.passedString
-        segueController.searchBool = true
-        present(segueController, animated: true, completion: nil)
+    class linkButton: UIButton {
+        var linkURL = String()
+    }
+    var ref = FIRDatabase.database().reference()
+    var tableView = UITableView()
+    func handleURL(sender: linkButton) {
+        if (sender.linkURL != "") {
+            openURL(url: sender.linkURL)
+        } else {
+            let alert = UIAlertController(title: "Failure", message: "No link available. Feel free to add one in.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    func openURL(url: String) {
+        let passedURL = URL(string: url)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(passedURL!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(passedURL!)
+            
+        }
     }
     
+    
+    
     //Move to your Calendar with the reminders
-    func MoveToFeed() {
+    func handleMoveToFeed() {
         let segueController = FeedController()
         present(segueController, animated: false, completion: nil)
     }
@@ -66,20 +71,7 @@ class FullSearchViewController: UIViewController, UITableViewDataSource, UITable
         let segueController = NotificationCenterViewController()
         present(segueController, animated: false, completion: nil)
     }
-    func handleCalendar() {
-        
-            //Global feed string is the opposite of what the actual position is fml rahul
-            if (globalFeedString == "Student") {
-                
-                let segueController = CalendarViewController()
-                segueController.modalTransitionStyle = .flipHorizontal
-                segueController.modalPresentationStyle = .popover
-                present(segueController, animated: false, completion: nil)
-            } else {
-                let segueController = SetUpFreeTimeViewController()
-                present(segueController, animated: false, completion: nil)
-            }
-        }
+    
     
     
     func createMastHead() {
@@ -120,7 +112,7 @@ class FullSearchViewController: UIViewController, UITableViewDataSource, UITable
         let searchImage = UIImage(named: "searchIcon")
         let searchTinted = searchImage?.withRenderingMode(.alwaysTemplate)
         searchIcon.setBackgroundImage(searchTinted, for: .normal)
-        searchIcon.tintColor = UIColor.gray
+        searchIcon.tintColor = UIColor.white
         
         searchIcon.centerXAnchor.constraint(equalTo: topView.leftAnchor, constant: (self.view.bounds.width / 2 - titleLabel.intrinsicContentSize.width / 2) / 2).isActive = true
         searchIcon.widthAnchor.constraint(equalToConstant: 24).isActive = true
@@ -163,7 +155,7 @@ class FullSearchViewController: UIViewController, UITableViewDataSource, UITable
         feedIcon.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         let feedImage = UIImage(named: "HomeIcon")
         feedIcon.setBackgroundImage(feedImage, for: .normal)
-        feedIcon.addTarget(self, action: #selector(MoveToFeed), for: .touchUpInside)
+        feedIcon.addTarget(self, action: #selector(handleMoveToFeed), for: .touchUpInside)
         
         let calendarIcon = UIButton()
         self.view.addSubview(calendarIcon)
@@ -174,9 +166,8 @@ class FullSearchViewController: UIViewController, UITableViewDataSource, UITable
         calendarIcon.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         let calendarPic = UIImage(named: "CalendarIcon")
         let calendarTinted = calendarPic?.withRenderingMode(.alwaysTemplate)
-        calendarIcon.setBackgroundImage(calendarPic, for: .normal)
+        calendarIcon.setBackgroundImage(calendarTinted, for: .normal)
         calendarIcon.tintColor = UIColor(red: 100/255, green: 149/255, blue: 245/255, alpha: 1)
-        calendarIcon.addTarget(self, action: #selector(handleCalendar), for: .touchUpInside)
         
         let messageIcon = UIButton()
         self.view.addSubview(messageIcon)
@@ -205,81 +196,131 @@ class FullSearchViewController: UIViewController, UITableViewDataSource, UITable
         
         
     }
-
-    //View Did load
+    
+    func handleBackMove() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func fetchLinks() {
+        ref.child("users").child(self.user.uid).child("Links").observe(.childAdded, with: { (snapshot) in
+            let dictionary = snapshot.value as? [String: AnyObject]
+            let link = Link()
+            if (dictionary?["Link Title"] as? String != nil) {
+                link.titleString = dictionary?["Link Title"] as! String
+            }
+            
+            if (dictionary?["Link URL"] as? String != nil) {
+                link.urlString = dictionary?["Link URL"] as! String
+            }
+            self.linkList.append(link)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        })
+    }
+    
+    var linkList = [Link]()
     override func viewDidLoad() {
+        super.viewDidLoad()
+        fetchLinks()
+        
         self.view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -60).isActive = true
         tableView.separatorStyle = .none
         
+        
+        let backButton = UIButton()
+        tableView.addSubview(backButton)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 10).isActive = true
+        backButton.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 10).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+        backButton.setImage(UIImage(named: "arrowIcon"), for: .normal)
+        backButton.addTarget(self, action: #selector(handleBackMove), for: .touchUpInside)
+        backButton.contentEdgeInsets = UIEdgeInsetsMake( -3, -3, -3, -3)
+        
         createMastHead()
-
+        
+        
+        
+        
+        // Do any additional setup after loading the view.
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
-    //-------------------------------------------------------------------------------------------
-
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
     
-    //SET UP TABLE VIEW
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return linkList.count + 1
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CellID")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CellID")
+        cell.selectionStyle = .none
         
+        cell.layer.borderWidth = 0.5
+        cell.layer.borderColor = UIColor.lightGray.cgColor
         
-        let textLabel = UILabel()
-        cell.addSubview(textLabel)
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        if (isItemAUser)! {
-            let user = itemList[indexPath.row] as? User
-        textLabel.text = user?.name
-
-        }
-        else {
-            textLabel.text = itemList[indexPath.row] as? String
-        }
-        
-        
-        textLabel.leftAnchor.constraint(equalTo: cell.leftAnchor, constant: 15).isActive = true
-        textLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
-        textLabel.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-        
-        let cellButton = genericCellButton()
-        cellButton.translatesAutoresizingMaskIntoConstraints = false
-        cell.addSubview(cellButton)
-        cellButton.leftAnchor.constraint(equalTo: cell.leftAnchor).isActive = true
-        cellButton.rightAnchor.constraint(equalTo: cell.rightAnchor).isActive = true
-        cellButton.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
-        cellButton.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
-        if (itemList[indexPath.row] is User) {
-        cellButton.passedString = itemList[indexPath.row].uid
+        if (indexPath.row == 0) {
+            var title = UILabel()
+            cell.addSubview(title)
+            title.translatesAutoresizingMaskIntoConstraints = false
+            title.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            title.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+            title.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)
+            title.text = "Other Links"
+            
         } else {
-            cellButton.passedString = itemList[indexPath.row] as? String
+            let link = linkList[indexPath.row - 1]
+            let button = linkButton()
+            
+            cell.addSubview(button)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.leftAnchor.constraint(equalTo: cell.leftAnchor).isActive = true
+            button.rightAnchor.constraint(equalTo: cell.rightAnchor).isActive = true
+            button.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
+            button.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
+            button.linkURL = link.urlString
+            button.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
+            
+            let titleLabel = UILabel()
+            cell.addSubview(titleLabel)
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel.leftAnchor.constraint(equalTo: cell.leftAnchor, constant: 15).isActive = true
+            titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+            titleLabel.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+            titleLabel.text = link.titleString
+            
+            
+            
+            
         }
-        cellButton.addTarget(self, action: #selector(handleMoveToFeed), for: .touchUpInside)
+        
         
         return cell
     }
     
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
-    
-    
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemList.count
-    }
-    
-    
-    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
 }

@@ -29,21 +29,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let label = UILabel()
         return label
     }()
-    let containerView = UIView()
 
-    
+    let label = UILabel()
+    let containerView = UIView()
     //Set the title Label on the top of the view Controller
     var  user : User?  {
         didSet {
             
-            let label = UILabel()
             label.text = user?.name
             label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 25)
             label.textColor = UIColor.white
-            self.view.addSubview(label)
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-            label.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 15).isActive = true
+           
+        
         }
     }
     
@@ -64,7 +61,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         frame.size.height = textView.contentSize.height
         textView.frame = frame
         
-        containerView.heightAnchor.constraint(equalTo: textView.heightAnchor).isActive = true
     }
     
     //----------------------------------
@@ -74,8 +70,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         
         
-        
-        self.view.backgroundColor = UIColor(red: (0/255.0), green: (204/255.0), blue: (255/255.0), alpha: 1)
+      
+        self.view.backgroundColor = UIColor.white
         let gradientLayer = CAGradientLayer()
         let topColor = UIColor(red: (107/255.0), green: (202/255.0), blue: (253/255.0), alpha: 1 )
         let bottomColor = UIColor(red: (105/255.0), green: (160/255.0), blue: (252/255.0), alpha: 0.7 )
@@ -96,9 +92,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
 
         
+       
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        
-        
+       
         view.addGestureRecognizer(tap)
         
     }
@@ -124,46 +120,90 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //Retrieve all of the messages to display
     func fetchMessages() {
-        messagesArray.removeAll()
+
         let sendingID = (FIRAuth.auth()?.currentUser?.uid)! as NSString
         let receivingID = NSString(string: (user?.uid)!)
-        let ref = FIRDatabase.database().reference().child("messages")
-        ref.observe(.childAdded, with: {  (snapshot) in
-            if let dictionary = snapshot.value as?  [String: AnyObject] {
-                let message = Messages()
+        var string1 = sendingID as String
+        string1.append(" and ")
+        string1.append(receivingID as String)
+        var string2 = receivingID as String
+        string2.append(" and ")
+        string2.append(sendingID as String)
+        let ref = FIRDatabase.database().reference().child("Relationships")
+        ref.observe(.value, with: {  (snapshot) in
+            self.messagesArray.removeAll()
 
-                if (dictionary["ReceivingID"] as! NSString == receivingID && dictionary["SendingID"] as! NSString == sendingID) {
-                    message.message = dictionary["message"] as! String?
-                    message.length = (message.message?.characters.count)! * 5 + 10
+            if let topDictionary = snapshot.value as?  [String: AnyObject] {
+                
+               var inString = String()
+                if (topDictionary[string1] != nil) {
+                    inString = string1
+                } else if (topDictionary[string2] != nil) {
+                    inString = string2
+                } else {
+                    inString = "false"
+                }
+
+                if (inString != "false") {
                     
-                    message.height = message.length / 5
-                    message.ReceivingID = receivingID as String
-                    message.SendingID = sendingID as String
-                    message.type = 1
-                    self.messagesArray.append(message)
+                    let dict = topDictionary[inString] as! [String: AnyObject]
+                    if (dict["messages"] != nil) {
+                    let messagesDict = dict["messages"] as! [String: AnyObject]
+                    let count = messagesDict.count
+                        for i in 0..<count {
+                            let key  = messagesDict[messagesDict.index(messagesDict.startIndex, offsetBy: i)].key
+                            let dictionary = messagesDict[key] as! [String: AnyObject]
+                            
+                            let message = Messages()
+                            if (dictionary["ReceivingID"] as! NSString == receivingID && dictionary["SendingID"] as! NSString == sendingID) {
+                                message.message = dictionary["message"] as! String?
+                                if (dictionary["timeStamp"] != nil) {
+                                    message.timeStamp = Int(dictionary["timeStamp"] as! Double)
+                                }
+                                message.length = (message.message?.characters.count)! * 5 + 10
+                                
+                                message.height = message.length / 5
+                                message.ReceivingID = receivingID as String
+                                message.SendingID = sendingID as String
+                                message.type = 1
+                                
+                                self.messagesArray.append(message)
+                                self.messagesArray.sort(by:  ({$0.timeStamp > $1.timeStamp}))
+
+                                
+                                
+                            } else if (dictionary["ReceivingID"] as! NSString == sendingID && dictionary["SendingID"] as! NSString == receivingID) {
+                                message.message = dictionary["message"] as! String?
+                                if (dictionary["timeStamp"] != nil) {
+                                    message.timeStamp = Int(dictionary["timeStamp"] as! Double)
+                                }
+                                message.ReceivingID = sendingID as String
+                                message.SendingID = receivingID as String
+                                message.type = 2
+                                self.messagesArray.append(message)
+                                self.messagesArray.sort(by:  ({$0.timeStamp > $1.timeStamp}))
+
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                                
+                                
+                            }
+                            DispatchQueue.main.async {
+                                if (self.tableView.contentSize.height > self.tableView.frame.size.height) {
+                                    self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: false)
+                                }
+                            }
+                            
+
+                        }
                     
-                    
-                    
-                } else if (dictionary["ReceivingID"] as! NSString == sendingID && dictionary["SendingID"] as! NSString == receivingID) {
-                    message.message = dictionary["message"] as! String?
-                    message.ReceivingID = sendingID as String
-                    message.SendingID = receivingID as String
-                    message.type = 2
-                    self.messagesArray.append(message)
-                    
-                    
+                    }
+
+                   
                 }
                 
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    
-
-                }
-                DispatchQueue.main.async {
-                    if (self.tableView.contentSize.height > self.tableView.frame.size.height) {
-                        self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: false)
-                    }
-                }
                 
             }
         })
@@ -177,6 +217,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         present((self.user?.previousController)!, animated: true, completion: nil)
     }
     func dismissKeyboard() {
+        containerView.frame.origin.y = (self.view.bounds.height - 60)
+
         view.endEditing(true)
     }
     
@@ -200,11 +242,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         arrowIcon.tintColor = UIColor.white
         arrowIcon.addTarget(self, action: #selector(handleReturnToMessages), for: .touchUpInside)
         
-        
-        containerView.backgroundColor = UIColor.white
-        
-        let sendButton = UIButton()
+
+        self.view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -60).isActive = true
+        tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+
         self.view.addSubview(containerView)
+
+        containerView.backgroundColor = UIColor.white
+        let sendButton = UIButton()
         containerView.addSubview(sendButton)
         containerView.addSubview(messageTF)
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -218,10 +269,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5).isActive = true
-        sendButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10 ).isActive = true
-        sendButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
         sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         sendButton.setTitle("Send", for: .normal)
          
         sendButton.addTarget(self, action: #selector(handleSubmit), for: .touchUpInside)
@@ -232,8 +281,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         messageTF.translatesAutoresizingMaskIntoConstraints = false
         messageTF.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 5).isActive = true
         messageTF.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -4).isActive = true
-        messageTF.heightAnchor.constraint(equalToConstant: containerView.frame.height / 3).isActive = true
         messageTF.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        messageTF.heightAnchor.constraint(equalToConstant: 40).isActive = true
         messageTF.rightAnchor.constraint(equalTo: sendButton.leftAnchor, constant: -5).isActive = true
         messageTF.backgroundColor = UIColor.white
         messageTF.layer.borderWidth = CGFloat(1.0)
@@ -242,14 +291,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         sendButton.leftAnchor.constraint(equalTo: messageTF.rightAnchor, constant: 5).isActive = true
         
         
-        self.view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.bottomAnchor.constraint(equalTo: (messageTF.topAnchor)).isActive = true
-        tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
     }
     
     var timeStamp: TimeInterval {
@@ -262,19 +303,50 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if messageTF.text != "" {
         let sendingID = (FIRAuth.auth()?.currentUser?.uid)! as NSString
         let receivingID = NSString(string: (user?.uid)!)
+        var string1 = sendingID as String
+        string1.append(" and ")
+        string1.append(receivingID as String)
+        var string2 = receivingID as String
+        string2.append(" and ")
+        string2.append(sendingID as String)
         let ref = FIRDatabase.database().reference().child("messages").childByAutoId()
-        
+        let reference = FIRDatabase.database().reference().child("Relationships")
         let message: NSString = NSString(string: messageTF.text!)
-        
-        
+            
+            
         let timestamp = 0 - timeStamp
-        
+            
         let values = ["message": message, "SendingID": sendingID as AnyObject, "ReceivingID": receivingID, "timeStamp": timestamp as AnyObject] as [String: AnyObject]
+            var updateBool = true
+            let ref3updateValue = ["Last Message": message, "Sending Name": sendingID, "Read": "False" as AnyObject, "timeStamp": timestamp as AnyObject] as [String : AnyObject]
+            
+            
+  
+        
+       
+            
         ref.updateChildValues(values)
-        let ref3updateValue = ["Last Message": message, "Sending Name": sendingID, "Read": "False" as AnyObject, "timeStamp": timestamp as AnyObject] as [String : AnyObject]
+            reference.observe(.value, with: { (snapshot) in
+            
+                let dictionary = snapshot.value as! [String: AnyObject]
+                if (updateBool) {
+                if (dictionary[string1] != nil) {
+                    reference.child(string1).child("messages").childByAutoId().updateChildValues(values)
+                    updateBool = false
 
-        let ref3 = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("friends").child((user?.uid)!)
-        let ref4 = FIRDatabase.database().reference().child("users").child((user?.uid)!).child("friends").child((FIRAuth.auth()?.currentUser?.uid)!)
+                } else {
+                    reference.child(string2).child("messages").childByAutoId().updateChildValues(values)
+                    updateBool = false 
+                }
+                }
+            
+            })
+
+            
+        
+        
+        let ref3 = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("friends").child((user?.uid)!).child("lastMessage")
+        let ref4 = FIRDatabase.database().reference().child("users").child((user?.uid)!).child("friends").child((FIRAuth.auth()?.currentUser?.uid)!).child("lastMessage")
         ref3.setValue(ref3updateValue)
         ref4.setValue(ref3updateValue)
         let ref2 = FIRDatabase.database().reference().child("users").child((user?.uid)!).child("Notifications").childByAutoId()
@@ -287,9 +359,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let value = ["Message": messageString, "OtherUID": sendingID, "Type": typeString,  "profileImageURL": imageURLString as NSString, "name": self.nameString as NSString, "read": readString as NSString] as [String : AnyObject]
         ref2.updateChildValues(value)
         messageTF.text = nil
-            
         
-            
+view.endEditing(true)
+        
         }
         
         
@@ -302,26 +374,80 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func keyboardWillShow(notification: NSNotification) {
         
+
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
+//           
+            tableView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - (70 + keyboardSize.height))
+//
+//
+          
+            tableView.isScrollEnabled = false
+
+            if (self.tableView.contentSize.height > (self.tableView.frame.size.height)) {
+                tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - (self.tableView.frame.size.height)), animated: false)
             }
-        }
+//
+            containerView.frame.origin.y -= keyboardSize.height
+          
+            
+
         
+        
+        }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
+            tableView.isScrollEnabled = true
+             tableView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - 70)
+            if (messagesArray.count != 0) {
+            let path = IndexPath(row: messagesArray.count - 1, section: 0)
+                self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
             }
+
+
         }
     }
     
     
+   
     //-------------------------------
-    
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let containerView = UIView()
+        tableView.addSubview(containerView)
+        let gradientLayer = CAGradientLayer()
+        let topColor = UIColor(red: (107/255.0), green: (202/255.0), blue: (253/255.0), alpha: 1 )
+        let bottomColor = UIColor(red: (105/255.0), green: (160/255.0), blue: (252/255.0), alpha: 1.0 )
+        gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
+        
+        
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60)
+        containerView.layer.addSublayer(gradientLayer)
+        containerView.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: 5).isActive = true
+        
+        let arrowIcon = UIButton()
+        containerView.addSubview(arrowIcon)
+        let arrowImage = UIImage(named: "arrowIcon")
+        let arrowTinted = arrowImage?.withRenderingMode(.alwaysTemplate)
+        arrowIcon.translatesAutoresizingMaskIntoConstraints = false
+        arrowIcon.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15).isActive = true
+        arrowIcon.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10).isActive = true
+        arrowIcon.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+        arrowIcon.widthAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+        arrowIcon.setImage(arrowTinted, for: .normal)
+        arrowIcon.tintColor = UIColor.white
+        arrowIcon.addTarget(self, action: #selector(handleReturnToMessages), for: .touchUpInside)
+        
+        
+        
+        return containerView
+    }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

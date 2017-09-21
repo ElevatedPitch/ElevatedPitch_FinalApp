@@ -311,10 +311,12 @@ class LandingPageViewController: UIViewController {
       
         containerView.addSubview(cancelButton)
         cancelButton.isHidden = true
+        cancelButton.contentEdgeInsets = UIEdgeInsetsMake( 7, 7, 7, 7)
+
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setTitleColor(UIColor.black, for: .normal)
         cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+        cancelButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         cancelButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
         cancelButton.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10).isActive = true
         cancelButton.addTarget(self, action: #selector(keyboardWillHide), for: .touchUpInside)

@@ -36,7 +36,8 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
     let headerLabel = UILabel()
     let nameLabel = UILabel()
     let titleLabel = UILabel()
-    
+    var height2 = CGFloat()
+    var width = CGFloat()
     
     let cameraButton = UIButton()
     let messageButton = emailButton()
@@ -80,6 +81,11 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
     let position3Description = UILabel()
     let companySite = urlTap()
     
+    
+    var caption1Label = UILabel()
+    var captionExperienceLabel = UILabel()
+    var captionSkillsLabel = UILabel()
+    var captionExtraLabel = UILabel()
     // ----------------------------------------------------------------------
     
     //HELPER FUNCTIONS AND VIEW DID LOAD 
@@ -131,6 +137,7 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
         let segueController = SearchViewController(nibName: nil, bundle: nil)
         segueController.previousController = ProfilePageViewController()
         present(segueController, animated: false, completion: nil)
+        
     }
     func moveToProfile(sender: UIButton) {
         
@@ -341,7 +348,11 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
                     } else {
                         self.nameLabel.text = "Placeholder"
                     }
-
+                    if dictionary["firstCaption"] as? String != nil {
+                        self.caption1Label.text = dictionary["firstCaption"] as? String
+                    } else {
+                        self.caption1Label.text = "Update Video to add a caption..."
+                    }
                     if dictionary["Company"] as! String? != nil {
                         if (self.nameLabel.text != "Placeholder") {
                         self.nameLabel.text?.append(" - ")
@@ -362,6 +373,8 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
                     
                     if dictionary["Bio"] as? String != nil {
                         self.fullLabel.text = dictionary["Bio"] as! String
+                    } else {
+                        self.fullLabel.text = "Click update to add a bio..."
                     }
                     
                     if dictionary["Company Mission"] as? String != nil {
@@ -591,9 +604,11 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     override func viewDidLoad() {
-
+        
         super.viewDidLoad()
         profileImageView.addObserver(self, forKeyPath: "image", options: NSKeyValueObservingOptions.new, context: nil)
+        height2 = self.view.bounds.height
+        width = self.view.bounds.width
 
         if (globalFeedString == "Employer") {
         checkIfUserLoggedInAsStudent()
@@ -619,7 +634,7 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func moveToLinks() {
-        let segueController = SetLinkViewController()
+        let segueController = AddLinkViewController()
         present(segueController, animated: true, completion: nil)
     }
     func chooseVideo(sender: UIButton) {
@@ -677,15 +692,17 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             case 0:
                 return 60
             case 1:
-                return 150
+                return 200
             case 2:
-                return 150
+                return 200
             case 3:
-                return height + 100
+                return 200
             case 4:
-                return 3 * height + 300
+                return height + 340
+            case 5:
+                return 5 * height + 150
             default:
-                return 150
+                return 120
                 
             }
         } else {
@@ -735,22 +752,27 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
         case 1:
             cell.addSubview(profileImageView)
             profileImageView.translatesAutoresizingMaskIntoConstraints = false
-            profileImageView.centerXAnchor.constraint(equalTo: cell.leftAnchor, constant: 60).isActive = true
-            profileImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-            profileImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-            profileImageView.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+            profileImageView.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            profileImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            profileImageView.centerYAnchor.constraint(equalTo: cell.centerYAnchor, constant: -10).isActive = true
             profileImageView.layer.borderWidth = 0.5
+            
             let changeButton = UIButton()
-            profileImageView.addSubview(changeButton)
-            profileImageView.isUserInteractionEnabled = true
+            cell.addSubview(changeButton)
             changeButton.translatesAutoresizingMaskIntoConstraints = false
-            changeButton.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true
-            changeButton.rightAnchor.constraint(equalTo: profileImageView.rightAnchor).isActive = true
-            changeButton.setTitle("Update", for: .normal)
-            changeButton.setTitleColor(UIColor.black, for: .normal)
-            changeButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 8)
-            changeButton.layer.backgroundColor = UIColor(red: 211/255, green: 211/255, blue: 211/255, alpha: 0.6).cgColor
+            changeButton.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            changeButton.widthAnchor.constraint(equalToConstant: width * 0.65).isActive = true
+            changeButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: height2 * 0.02).isActive = true
+            
+            changeButton.heightAnchor.constraint(equalToConstant: height2 * 0.05).isActive = true
+            changeButton.setTitle("Update Picture", for: .normal)
+            changeButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+            changeButton.setTitleColor(UIColor.white, for: .normal)
+            changeButton.layer.cornerRadius = 10
+            changeButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
             changeButton.addTarget(self, action: #selector(handleAddProfilePic), for: .touchUpInside)
+            
             if (profileImageURL == "AddIcon") {
                 profileImageView.image = UIImage(named: "AddIcon")
                 let profileButton = UIButton()
@@ -767,46 +789,60 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             if (profileImageURL == nil) {
             ai.startAnimating()
             }
+//            cell.addSubview(fullLabel)
+//            fullLabel.translatesAutoresizingMaskIntoConstraints = false
+//            fullLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+//            fullLabel.widthAnchor.constraint(equalToConstant: cell.bounds.width * 0.6).isActive = true
+//            fullLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 15).isActive = true
+//            fullLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+//            fullLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
+//            
+//            fullLabel.lineBreakMode = .byWordWrapping
+//            fullLabel.numberOfLines = 0
+           break
             
-            let updateProfileButton = UIButton()
-            cell.addSubview(updateProfileButton)
-            updateProfileButton.translatesAutoresizingMaskIntoConstraints = false
-            updateProfileButton.topAnchor.constraint(equalTo: cell.topAnchor, constant: 5).isActive = true
-            updateProfileButton.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -5).isActive = true
-            updateProfileButton.setTitle("Update", for: .normal)
-            updateProfileButton.setTitleColor(UIColor.blue, for: .normal)
-            updateProfileButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
-            updateProfileButton.heightAnchor.constraint(equalToConstant: 10).isActive = true
-            updateProfileButton.addTarget(self, action: #selector(moveToBio), for: .touchUpInside)
+            
+        case 2:
+            let titleLabel = UILabel()
+            cell.addSubview(titleLabel)
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel.text = "My Bio"
+            titleLabel.topAnchor.constraint(equalTo: cell.topAnchor, constant: 10).isActive = true
+            titleLabel.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            titleLabel.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
             
             cell.addSubview(fullLabel)
             fullLabel.translatesAutoresizingMaskIntoConstraints = false
-            fullLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+            fullLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
             fullLabel.widthAnchor.constraint(equalToConstant: cell.bounds.width * 0.6).isActive = true
-            fullLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 15).isActive = true
-            fullLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+            fullLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
             fullLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
-            
+            fullLabel.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
             fullLabel.lineBreakMode = .byWordWrapping
             fullLabel.numberOfLines = 0
-           break
             
-        case 2:
-            let skillUpdateButton = UIButton()
-            cell.addSubview(skillUpdateButton)
-            skillUpdateButton.translatesAutoresizingMaskIntoConstraints = false
-            skillUpdateButton.topAnchor.constraint(equalTo: cell.topAnchor, constant: 5).isActive = true
-            skillUpdateButton.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -5).isActive = true
-            skillUpdateButton.setTitle("Update", for: .normal)
-            skillUpdateButton.setTitleColor(UIColor.blue, for: .normal)
-            skillUpdateButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
-            skillUpdateButton.heightAnchor.constraint(equalToConstant: 10).isActive = true
-            skillUpdateButton.addTarget(self, action: #selector(moveToSkills), for: .touchUpInside)
+            let changeButton = UIButton()
+            cell.addSubview(changeButton)
+            changeButton.translatesAutoresizingMaskIntoConstraints = false
+            changeButton.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            changeButton.widthAnchor.constraint(equalToConstant: width * 0.65).isActive = true
+            changeButton.topAnchor.constraint(equalTo: fullLabel.bottomAnchor, constant: height2 * 0.04).isActive = true
+            
+            changeButton.heightAnchor.constraint(equalToConstant: height2 * 0.05).isActive = true
+            changeButton.setTitle("Update Skills", for: .normal)
+            changeButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+            changeButton.setTitleColor(UIColor.white, for: .normal)
+            changeButton.layer.cornerRadius = 10
+            changeButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
+            changeButton.addTarget(self, action: #selector(moveToBio), for: .touchUpInside)
+            
+            break
+        case 3:
             
 
             let skillLabel = UILabel()
             cell.addSubview(skillLabel)
-            skillLabel.text = "My Skills"
+            skillLabel.text = "Top Skills"
             skillLabel.translatesAutoresizingMaskIntoConstraints = false
             skillLabel.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
             skillLabel.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
@@ -892,8 +928,24 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             fourthSkill.topAnchor.constraint(equalTo: thirdSkill.topAnchor).isActive = true
             fourthSkill.font = UIFont(name: "AppleSDGothicNeo-Light", size: 18)
             
+            
+            let changeButton = UIButton()
+            cell.addSubview(changeButton)
+            changeButton.translatesAutoresizingMaskIntoConstraints = false
+            changeButton.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            changeButton.widthAnchor.constraint(equalToConstant: width * 0.65).isActive = true
+            changeButton.topAnchor.constraint(equalTo: fourthSkill.bottomAnchor, constant: height2 * 0.04).isActive = true
+            
+            changeButton.heightAnchor.constraint(equalToConstant: height2 * 0.05).isActive = true
+            changeButton.setTitle("Update Skills", for: .normal)
+            changeButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+            changeButton.setTitleColor(UIColor.white, for: .normal)
+            changeButton.layer.cornerRadius = 10
+            changeButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
+            changeButton.addTarget(self, action: #selector(moveToSkills), for: .touchUpInside)
+            
             break
-        case 3:
+        case 4:
             let firstVideoLabel = UILabel()
             cell.addSubview(firstVideoLabel)
             firstVideoLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -913,19 +965,40 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             firstVideoImageView.layer.borderWidth = 0.5
             firstVideoImageView.isUserInteractionEnabled = true
             
+            cell.addSubview(caption1Label)
+            caption1Label.translatesAutoresizingMaskIntoConstraints = false
+            caption1Label.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            caption1Label.topAnchor.constraint(equalTo: firstVideoImageView.bottomAnchor, constant: 30).isActive = true
+            caption1Label.widthAnchor.constraint(equalTo: firstVideoImageView.widthAnchor).isActive = true
+            caption1Label.numberOfLines = 0
+            caption1Label.textAlignment = .center
+            caption1Label.lineBreakMode = .byWordWrapping
+            caption1Label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
+            
+            //Check here
+            
+            
+            
+           
             let changeFirstVideoButton = UIButton()
-            firstVideoImageView.addSubview(changeFirstVideoButton)
+            cell.addSubview(changeFirstVideoButton)
             changeFirstVideoButton.translatesAutoresizingMaskIntoConstraints = false
-            changeFirstVideoButton.rightAnchor.constraint(equalTo: firstVideoImageView.rightAnchor).isActive = true
-            changeFirstVideoButton.bottomAnchor.constraint(equalTo: firstVideoImageView.bottomAnchor).isActive = true
-            changeFirstVideoButton.setTitle("Update", for: .normal)
-            changeFirstVideoButton.setTitleColor(UIColor.black, for: .normal)
-            changeFirstVideoButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 8)
-            changeFirstVideoButton.layer.backgroundColor = UIColor(red: 211/255, green: 211/255, blue: 211/255, alpha: 0.6).cgColor
+            changeFirstVideoButton.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            changeFirstVideoButton.widthAnchor.constraint(equalToConstant: width * 0.65).isActive = true
+            changeFirstVideoButton.topAnchor.constraint(equalTo: caption1Label.bottomAnchor, constant: height2 * 0.03).isActive = true
+            
+            changeFirstVideoButton.heightAnchor.constraint(equalToConstant: height2 * 0.05).isActive = true
+            changeFirstVideoButton.setTitle("Update Video", for: .normal)
+            changeFirstVideoButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+            changeFirstVideoButton.setTitleColor(UIColor.white, for: .normal)
+            changeFirstVideoButton.layer.cornerRadius = 10
+            changeFirstVideoButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
             changeFirstVideoButton.tag = 1
             changeFirstVideoButton.addTarget(self, action: #selector(chooseVideo), for: .touchUpInside)
+            
+
             if (firstVideoURl == "AddIcon") {
-                firstVideoImageView.image = UIImage(named: "AddIcon")
+                firstVideoImageView.image = UIImage(named: "NoVideo")
             } else {
                 var firstVideoButton = playButton()
                 firstVideoButton.playerURL = firstVideoURl
@@ -940,7 +1013,7 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
                 
             }
             break
-        case 4:
+        case 5:
             
             let supplementalVideoLabel = UILabel()
             cell.addSubview(supplementalVideoLabel)
@@ -956,7 +1029,7 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             var supplementalPlayButton = playButton()
             cell.addSubview(supplementalImageView)
             if (supplementalVideoURL == "AddIcon") {
-                supplementalImageView.image = UIImage(named: "AddIcon")
+                supplementalImageView.image = UIImage(named: "NoVideo")
             } else {
                 supplementalPlayButton.playerURL = supplementalVideoURL
                 supplementalImageView.addSubview(supplementalPlayButton)
@@ -973,26 +1046,31 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             supplementalImageView.heightAnchor.constraint(equalToConstant: height).isActive = true
             supplementalImageView.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
             supplementalImageView.widthAnchor.constraint(equalToConstant: cell.bounds.width).isActive = true
-            supplementalImageView.topAnchor.constraint(equalTo: supplementalVideoLabel.bottomAnchor, constant: 75).isActive = true
+            supplementalImageView.topAnchor.constraint(equalTo: supplementalVideoLabel.bottomAnchor, constant: 50).isActive = true
             supplementalImageView.layer.borderWidth = 0.5
             supplementalImageView.isUserInteractionEnabled = true
             
             let changeSupplemental1 = UIButton()
-            supplementalImageView.addSubview(changeSupplemental1)
+            
+            cell.addSubview(changeSupplemental1)
             changeSupplemental1.translatesAutoresizingMaskIntoConstraints = false
-            changeSupplemental1.rightAnchor.constraint(equalTo: supplementalImageView.rightAnchor).isActive = true
-            changeSupplemental1.bottomAnchor.constraint(equalTo: supplementalImageView.bottomAnchor).isActive = true
-            changeSupplemental1.setTitle("Update", for: .normal)
-            changeSupplemental1.setTitleColor(UIColor.black, for: .normal)
-            changeSupplemental1.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 8)
-            changeSupplemental1.layer.backgroundColor = UIColor(red: 211/255, green: 211/255, blue: 211/255, alpha: 0.6).cgColor
+            changeSupplemental1.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            changeSupplemental1.widthAnchor.constraint(equalToConstant: width * 0.65).isActive = true
+            changeSupplemental1.topAnchor.constraint(equalTo: supplementalImageView.bottomAnchor, constant: height2 * 0.03).isActive = true
+            changeSupplemental1.heightAnchor.constraint(equalToConstant: height2 * 0.05).isActive = true
+            changeSupplemental1.setTitle("Update Video", for: .normal)
+            changeSupplemental1.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+            changeSupplemental1.setTitleColor(UIColor.white, for: .normal)
+            changeSupplemental1.layer.cornerRadius = 10
+            changeSupplemental1.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
             changeSupplemental1.tag = 2
-            changeSupplemental1.addTarget(self, action: #selector(chooseVideo), for: .touchUpInside )
-           
+            changeSupplemental1.addTarget(self, action: #selector(chooseVideo), for: .touchUpInside)
+            
+
             cell.addSubview(supplementalImageView2)
             var supplementalPlayButton2 = playButton()
             if (supplementalVideoURL2 == "AddIcon") {
-                supplementalImageView2.image = UIImage(named: "AddIcon")
+                supplementalImageView2.image = UIImage(named: "NoVideo")
             } else {
                 supplementalPlayButton2.playerURL = supplementalVideoURL2
                 supplementalImageView2.addSubview(supplementalPlayButton2)
@@ -1013,23 +1091,25 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             supplementalImageView2.isUserInteractionEnabled = true
             
             let changeSupplemental2 = UIButton()
-            supplementalImageView2.addSubview(changeSupplemental2)
+            cell.addSubview(changeSupplemental2)
             changeSupplemental2.translatesAutoresizingMaskIntoConstraints = false
-            changeSupplemental2.rightAnchor.constraint(equalTo: supplementalImageView2.rightAnchor).isActive = true
-            changeSupplemental2.bottomAnchor.constraint(equalTo: supplementalImageView2.bottomAnchor).isActive = true
-            changeSupplemental2.setTitle("Update", for: .normal)
-            changeSupplemental2.setTitleColor(UIColor.black, for: .normal)
-            changeSupplemental2.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 8)
-            changeSupplemental2.layer.backgroundColor = UIColor(red: 211/255, green: 211/255, blue: 211/255, alpha: 0.6).cgColor
+            changeSupplemental2.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            changeSupplemental2.widthAnchor.constraint(equalToConstant: width * 0.65).isActive = true
+            changeSupplemental2.topAnchor.constraint(equalTo: supplementalImageView2.bottomAnchor, constant: height2 * 0.03).isActive = true
+            changeSupplemental2.heightAnchor.constraint(equalToConstant: height2 * 0.05).isActive = true
+            changeSupplemental2.setTitle("Update Video", for: .normal)
+            changeSupplemental2.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+            changeSupplemental2.setTitleColor(UIColor.white, for: .normal)
+            changeSupplemental2.layer.cornerRadius = 10
+            changeSupplemental2.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
             changeSupplemental2.tag = 3
-            changeSupplemental2.addTarget(self, action: #selector(chooseVideo), for: .touchUpInside )
-
+            changeSupplemental2.addTarget(self, action: #selector(chooseVideo), for: .touchUpInside)
             
             
             cell.addSubview(supplementalImageView3)
             var supplementalPlayButton3 = playButton()
             if (supplementalVideoURL3 == "AddIcon") {
-                supplementalImageView3.image = UIImage(named: "AddIcon")
+                supplementalImageView3.image = UIImage(named: "NoVideo")
             } else {
                 supplementalPlayButton3.playerURL = supplementalVideoURL3
                 supplementalImageView3.addSubview(supplementalPlayButton3)
@@ -1052,16 +1132,21 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             supplementalImageView3.isUserInteractionEnabled = true
             
             let changeSupplemental3 = UIButton()
-            supplementalImageView3.addSubview(changeSupplemental3)
+            
+            cell.addSubview(changeSupplemental3)
             changeSupplemental3.translatesAutoresizingMaskIntoConstraints = false
-            changeSupplemental3.rightAnchor.constraint(equalTo: supplementalImageView3.rightAnchor).isActive = true
-            changeSupplemental3.bottomAnchor.constraint(equalTo: supplementalImageView3.bottomAnchor).isActive = true
-            changeSupplemental3.setTitle("Update", for: .normal)
-            changeSupplemental3.setTitleColor(UIColor.black, for: .normal)
-            changeSupplemental3.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 8)
-            changeSupplemental3.layer.backgroundColor = UIColor(red: 211/255, green: 211/255, blue: 211/255, alpha: 0.6).cgColor
+            changeSupplemental3.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            changeSupplemental3.widthAnchor.constraint(equalToConstant: width * 0.65).isActive = true
+            changeSupplemental3.topAnchor.constraint(equalTo: supplementalImageView3.bottomAnchor, constant: height2 * 0.03).isActive = true
+            changeSupplemental3.heightAnchor.constraint(equalToConstant: height2 * 0.05).isActive = true
+            changeSupplemental3.setTitle("Update Video", for: .normal)
+            changeSupplemental3.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+            changeSupplemental3.setTitleColor(UIColor.white, for: .normal)
+            changeSupplemental3.layer.cornerRadius = 10
+            changeSupplemental3.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
             changeSupplemental3.tag = 4
-            changeSupplemental3.addTarget(self, action: #selector(chooseVideo), for: .touchUpInside )
+            changeSupplemental3.addTarget(self, action: #selector(chooseVideo), for: .touchUpInside)
+            
 
             
             
@@ -1072,7 +1157,7 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             break
             
             
-        case 5:
+        case 6:
             let linkedInImageView = UIImageView()
             cell.addSubview(linkedInImageView)
             linkedInImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -1083,39 +1168,8 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             linkedInImageView.leftAnchor.constraint(equalTo: cell.leftAnchor, constant: 30).isActive = true
             
             
-            let githubImageView = UIImageView()
-            cell.addSubview(githubImageView)
-            githubImageView.translatesAutoresizingMaskIntoConstraints = false
-            githubImageView.leftAnchor.constraint(equalTo: linkedInImageView.leftAnchor).isActive = true
-            githubImageView.heightAnchor.constraint(equalTo: linkedInImageView.heightAnchor).isActive = true
-            githubImageView.widthAnchor.constraint(equalTo: linkedInImageView.widthAnchor).isActive = true
-            githubImageView.centerYAnchor.constraint(equalTo: linkedInImageView.centerYAnchor, constant: 140 / 3).isActive = true
-            githubImageView.image = UIImage(named: "githubLogo")
             
-            let bruinImageView = UIImageView()
-            cell.addSubview(bruinImageView)
-            bruinImageView.translatesAutoresizingMaskIntoConstraints = false
-            bruinImageView.leftAnchor.constraint(equalTo: linkedInImageView.leftAnchor).isActive = true
-            bruinImageView.heightAnchor.constraint(equalTo: linkedInImageView.heightAnchor).isActive = true
-            bruinImageView.widthAnchor.constraint(equalTo: linkedInImageView.widthAnchor).isActive = true
-            bruinImageView.centerYAnchor.constraint(equalTo: githubImageView.centerYAnchor, constant: 140 / 3).isActive = true
-            bruinImageView.image = UIImage(named: "uclaLogo")
-            
-            
-            
-            
-            let linkUpdateButton = UIButton()
-            cell.addSubview(linkUpdateButton)
-            linkUpdateButton.translatesAutoresizingMaskIntoConstraints = false
-            linkUpdateButton.topAnchor.constraint(equalTo: cell.topAnchor, constant: 5).isActive = true
-            linkUpdateButton.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -5).isActive = true
-            linkUpdateButton.setTitle("Update", for: .normal)
-            linkUpdateButton.setTitleColor(UIColor.blue, for: .normal)
-            linkUpdateButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
-            linkUpdateButton.heightAnchor.constraint(equalToConstant: 10).isActive = true
-            linkUpdateButton.addTarget(self, action: #selector(moveToLinks), for: .touchUpInside)
-            
-            
+           
             
             cell.addSubview(linkedInTap)
             linkedInTap.translatesAutoresizingMaskIntoConstraints = false
@@ -1125,26 +1179,44 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             linkedInTap.setTitleColor(UIColor.blue, for: .normal)
             linkedInTap.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)
             linkedInTap.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
-       
             
-            cell.addSubview(githubTap)
-            githubTap.translatesAutoresizingMaskIntoConstraints = false
-            githubTap.centerYAnchor.constraint(equalTo: githubImageView.centerYAnchor).isActive = true
-            githubTap.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-            githubTap.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)
-            githubTap.setTitle("Click Me", for: .normal)
-            githubTap.setTitleColor(UIColor.blue, for: .normal)
-            githubTap.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
+            
+            let changeButton = UIButton()
+            cell.addSubview(changeButton)
+            changeButton.translatesAutoresizingMaskIntoConstraints = false
+            changeButton.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            changeButton.widthAnchor.constraint(equalToConstant: width * 0.65).isActive = true
+            changeButton.topAnchor.constraint(equalTo: linkedInTap.bottomAnchor, constant: height2 * 0.04).isActive = true
+            
+            changeButton.heightAnchor.constraint(equalToConstant: height2 * 0.05).isActive = true
+            changeButton.setTitle("Add More Links", for: .normal)
+            changeButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+            changeButton.setTitleColor(UIColor.white, for: .normal)
+            changeButton.layer.cornerRadius = 10
+            changeButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
+            changeButton.addTarget(self, action: #selector(moveToLinks), for: .touchUpInside)
+            
 
-            cell.addSubview(bruinTap)
-            bruinTap.translatesAutoresizingMaskIntoConstraints = false
-            bruinTap.centerYAnchor.constraint(equalTo: bruinImageView.centerYAnchor).isActive = true
-            bruinTap.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-            bruinTap.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)!
-            bruinTap.setTitle("Click Me", for: .normal)
-            bruinTap.setTitleColor(UIColor.blue, for: .normal)
-            bruinTap.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
-
+//       
+//            
+//            cell.addSubview(githubTap)
+//            githubTap.translatesAutoresizingMaskIntoConstraints = false
+//            githubTap.centerYAnchor.constraint(equalTo: githubImageView.centerYAnchor).isActive = true
+//            githubTap.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+//            githubTap.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)
+//            githubTap.setTitle("Click Me", for: .normal)
+//            githubTap.setTitleColor(UIColor.blue, for: .normal)
+//            githubTap.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
+//
+//            cell.addSubview(bruinTap)
+//            bruinTap.translatesAutoresizingMaskIntoConstraints = false
+//            bruinTap.centerYAnchor.constraint(equalTo: bruinImageView.centerYAnchor).isActive = true
+//            bruinTap.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+//            bruinTap.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)!
+//            bruinTap.setTitle("Click Me", for: .normal)
+//            bruinTap.setTitleColor(UIColor.blue, for: .normal)
+//            bruinTap.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
+//
             
         default:
             
@@ -1176,10 +1248,10 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             case 1:
                 cell.addSubview(profileImageView)
                 profileImageView.translatesAutoresizingMaskIntoConstraints = false
-                profileImageView.centerXAnchor.constraint(equalTo: cell.leftAnchor, constant: 60).isActive = true
-                profileImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-                profileImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-                profileImageView.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+                profileImageView.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+                profileImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+                profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+                profileImageView.centerYAnchor.constraint(equalTo: cell.centerYAnchor, constant: -10).isActive = true
                 profileImageView.layer.borderWidth = 0.5
                 let changeButton = UIButton()
                 profileImageView.addSubview(changeButton)
@@ -1209,27 +1281,27 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
                     ai.startAnimating()
                 }
                 
-                let updateProfileButton = UIButton()
-                cell.addSubview(updateProfileButton)
-                updateProfileButton.translatesAutoresizingMaskIntoConstraints = false
-                updateProfileButton.topAnchor.constraint(equalTo: cell.topAnchor, constant: 5).isActive = true
-                updateProfileButton.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -5).isActive = true
-                updateProfileButton.setTitle("Update", for: .normal)
-                updateProfileButton.setTitleColor(UIColor.blue, for: .normal)
-                updateProfileButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
-                updateProfileButton.heightAnchor.constraint(equalToConstant: 10).isActive = true
-                updateProfileButton.addTarget(self, action: #selector(moveToBio), for: .touchUpInside)
-                
-                cell.addSubview(fullLabel)
-                fullLabel.translatesAutoresizingMaskIntoConstraints = false
-                fullLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
-                fullLabel.widthAnchor.constraint(equalToConstant: cell.bounds.width * 0.6).isActive = true
-                fullLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 15).isActive = true
-                fullLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
-                fullLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
-                
-                fullLabel.lineBreakMode = .byWordWrapping
-                fullLabel.numberOfLines = 0
+//                let updateProfileButton = UIButton()
+//                cell.addSubview(updateProfileButton)
+//                updateProfileButton.translatesAutoresizingMaskIntoConstraints = false
+//                updateProfileButton.topAnchor.constraint(equalTo: cell.topAnchor, constant: 5).isActive = true
+//                updateProfileButton.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -5).isActive = true
+//                updateProfileButton.setTitle("Update", for: .normal)
+//                updateProfileButton.setTitleColor(UIColor.blue, for: .normal)
+//                updateProfileButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
+//                updateProfileButton.heightAnchor.constraint(equalToConstant: 10).isActive = true
+//                updateProfileButton.addTarget(self, action: #selector(moveToBio), for: .touchUpInside)
+////                
+//                cell.addSubview(fullLabel)
+//                fullLabel.translatesAutoresizingMaskIntoConstraints = false
+//                fullLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+//                fullLabel.widthAnchor.constraint(equalToConstant: cell.bounds.width * 0.6).isActive = true
+//                fullLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 15).isActive = true
+//                fullLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+//                fullLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
+//                
+//                fullLabel.lineBreakMode = .byWordWrapping
+//                fullLabel.numberOfLines = 0
                 break
                 
                 
@@ -1403,7 +1475,7 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (globalFeedString == "Employer") {
-        return 6
+        return 7
         } else {
             return 8
         }
@@ -1452,7 +1524,7 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             
         }
         
-        let someImage = pickedImageFromPicker.jpeg(.lowest)
+        let someImage = pickedImageFromPicker.jpeg(.high)
         
         profileImageView.image = UIImage(data: someImage!)
         profileImageView.image = resizeImage(image: profileImageView.image!, targetSize: CGSize(width: 130, height: 130))

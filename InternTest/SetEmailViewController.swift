@@ -83,8 +83,9 @@ class SetEmailViewController: UIViewController {
             builder.header.to = [MCOAddress(displayName: curUser.name, mailbox: emailTF.text)]
             builder.header.from = MCOAddress(displayName: "Elevated Pitch", mailbox: "elevatedpitchhelp@gmail.com")
             builder.header.subject = "Invitation to Elevated Pitch"
-            builder.htmlBody = "Welcome to Elevated Pitch! We've been expecting you! Here is your verification code: "
+            builder.htmlBody = "Welcome to Elevated Pitch! Use "
             builder.htmlBody.append(passwordString)
+            builder.htmlBody.append(" as your verification code for the app")
             let sendData = builder.data()
             let send = emailSession.sendOperation(with: sendData)
             send?.start { (error) in
@@ -101,16 +102,46 @@ class SetEmailViewController: UIViewController {
         let segueController = VerificationCodeViewController()
         curUser.verificationCode = passwordString
         curUser.email = emailTF.text!
-        emailTF.text = "" 
         segueController.typeInt = 2
         curUser.previousController = "SetEmailViewController"
         segueController.curUser = curUser
-        present(segueController, animated: true, completion: nil)
+
+        FIRAuth.auth()?.fetchProviders(forEmail: curUser.email, completion: { (providers, error) in
+            
+             if  error != nil  {
+                let alert = UIAlertController(title: "Failure", message: error?.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Change email", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                self.emailTF.text = ""
+            } else if providers?.count != nil {
+                let alert = UIAlertController(title: "Failure", message: "Email Address in use", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Change email", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                self.emailTF.text = ""
+
+             } else {
+            self.present(segueController, animated: true, completion: nil)
+                self.emailTF.text = ""
+
+            }
+            
+            })
+        
+        
+
+        
+        
+        
+        
+        
+        
 //            } else {
 //            let alert = UIAlertController(title: "Failure", message: "Not from UCLA", preferredStyle: .alert)
 //            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
 //            self.present(alert, animated: true, completion: nil)
 //        }
+        
+
     }
     func checkEmailTF(email: String) -> Bool {
         if (email.contains("g.ucla.edu") || email.contains("ucla.edu")) {
@@ -132,7 +163,8 @@ class SetEmailViewController: UIViewController {
         backButton.widthAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
         backButton.setImage(UIImage(named: "arrowIcon"), for: .normal)
         backButton.addTarget(self, action: #selector(handleBackMove), for: .touchUpInside)
-        
+        backButton.contentEdgeInsets = UIEdgeInsetsMake( -3, -3, -3, -3)
+
         let titleLabel = UILabel()
         self.view.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -17,6 +17,11 @@ import Firebase
 var globalFeedString = String()
 var globalCurrentName = String()
 var globalProfilePictureImageURL = String()
+var firstGreenArrowBool = Bool()
+var firstRedCrossBool = Bool()
+var firstTimeCalendar = Bool()
+var firstTimeSearch = Bool()
+
 class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
@@ -28,12 +33,22 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cellID = "cellID"
     var profileImageURL: String?
     var passedInString: String?
+    var passedUniversityList = [String]()
+    var passedSkillsList = [String]()
+    var passedMajorList = [String]()
     var passedInInt: Int?
     var refreshControl: UIRefreshControl!
     var searchBool: Bool?
     var previousController: UIViewController?
 
+    var helpView = UIView()
+    var helpLabel = UILabel()
     
+    var helpTitleLabel = UILabel()
+    var firstSignUpBool = false
+    
+    var dict2 = [String: AnyObject]()
+    var isArchived = Bool()
     deinit {
         
     }
@@ -65,6 +80,7 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     class NoButton: UIButton {
         var value = Int()
+        var userID = String()
     }
     
     
@@ -75,6 +91,119 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
+    func greenArrow(sender: GenericCellButton) {
+        helpTitleLabel.text = "Connecting Feature"
+        helpLabel.text = "This is when you want to connect with a user. Similar to LinkedIn's connection feature, this will give you access to their profile, showing all of their supplemental videos and links or job postings if they're a recruiter, the ability to message them. An added feature for recruiters is that they can check the times student's are available and set meetings!"
+        setUpHelpView(sender: sender)
+        dict2["FirstTimeConnect"] = NSString(string: "false")
+        self.ref.child("users").child(self.uid!).child("HelpViews").updateChildValues(dict2)
+    }
+    func redCross(row: Int, uid: String) {
+        helpTitleLabel.text = "Rejection Feature"
+        helpLabel.text = "This is when you don't want a certain user to appear on your feed (even if you search for them). If you still want to see this user, there will be a special archive in your settings that displays all users you've rejected."
+        let button = GenericCellButton()
+        button.tag = row
+        button.user.uid = uid
+        setUpHelpView(sender: button)
+        dict2["FirstTimeReject"] = NSString(string: "false")
+        self.ref.child("users").child(self.uid!).child("HelpViews").updateChildValues(dict2)
+    }
+    
+    func feed() {
+        
+        helpTitleLabel.text = "Welcome to Feed"
+        helpLabel.text = "This is where you can connect with other users (Company Recruiters if you're Students and vice versa). Click on the red cross or green arrow to learn more about the kinds of ways you can interact with users and click the user's name to see a quick screenshot! Check out settings to figure out how to further customize your feed!"
+        setUpHelpView(sender: nil)
+        dict2["FirstTimeSignUp"] = NSString(string: "false")
+        self.ref.child("users").child(self.uid!).child("HelpViews").updateChildValues(dict2)
+
+    }
+    
+    func setUpHelpView(sender: GenericCellButton?) {
+        self.view.addSubview(helpView)
+        helpView.translatesAutoresizingMaskIntoConstraints = false
+        helpView.heightAnchor.constraint(equalToConstant: self.view.bounds.height / 2.3).isActive = true
+        helpView.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.8).isActive = true
+        helpView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        helpView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        helpView.backgroundColor = UIColor.white
+        helpView.layer.borderColor = UIColor.black.cgColor
+        helpView.layer.borderWidth = 1
+        helpView.layer.cornerRadius = 5
+        
+        helpView.addSubview(helpTitleLabel)
+        helpTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        helpTitleLabel.centerXAnchor.constraint(equalTo: helpView.centerXAnchor).isActive = true
+        helpTitleLabel.topAnchor.constraint(equalTo: helpView.topAnchor, constant: 10).isActive = true
+        helpTitleLabel.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 30)
+        
+        
+        helpView.addSubview(helpLabel)
+        helpLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        helpLabel.numberOfLines = 0
+        helpLabel.lineBreakMode = .byWordWrapping
+        helpLabel.centerXAnchor.constraint(equalTo: helpView.centerXAnchor).isActive = true
+        helpLabel.centerYAnchor.constraint(equalTo: helpView.centerYAnchor).isActive = true
+        helpLabel.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.7).isActive = true
+        helpLabel.textAlignment = .center
+        helpLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+        tableView.alpha = 0.8
+        
+        let continueButton = GenericCellButton()
+        helpView.addSubview(continueButton)
+        continueButton.translatesAutoresizingMaskIntoConstraints = false
+        continueButton.centerXAnchor.constraint(equalTo: helpView.centerXAnchor).isActive = true
+        continueButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.5).isActive = true
+        continueButton.topAnchor.constraint(equalTo: helpLabel.bottomAnchor, constant: 20).isActive = true
+        continueButton.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+        continueButton.setTitle("Get Started", for: .normal)
+        continueButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 16)
+        continueButton.setTitleColor(UIColor.white, for: .normal)
+        if (sender != nil) {
+        continueButton.user = (sender?.user)!
+        }
+        continueButton.layer.cornerRadius = 10
+        continueButton.tag = (sender?.tag)!
+        continueButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
+        continueButton.addTarget(self, action: #selector(removeHelpView), for: .touchUpInside)
+        
+
+        
+    }
+    func movePastGreenArrow(sender: GenericCellButton) {
+        if (sender.user.occupation == "Employer") {
+            let segueController = EmployerViewController(nibName: nil, bundle: nil)
+            segueController.user = (sender.user)
+            present(segueController, animated: true, completion: nil)
+        } else {
+            let segueController = StudentViewController(user: (sender.user))
+            present(segueController, animated: true, completion: nil)
+        }
+
+    }
+    
+    func movePastRedCross(sender: GenericCellButton) {
+        
+        let value = sender.tag
+        
+        userList.remove(at: value)
+        ref.child("users").child(uid!).child("Archived").child((sender.user.uid)).updateChildValues(["Archived?": "Yes" as NSString])
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+
+    }
+    
+    func removeHelpView(sender: GenericCellButton) {
+        helpView.removeFromSuperview()
+        tableView.alpha = 1
+        if (helpTitleLabel.text == "Connecting Feature") {
+            movePastGreenArrow(sender: sender)
+        } else if (helpTitleLabel.text == "Rejection Feature") {
+            movePastRedCross(sender: sender)
+        }
+    }
     
     //Call this so you can load up your messenger users before you start up
     
@@ -196,6 +325,7 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //When you press Yes, this is what happens. Registers as friend, uploads Notification and moves to their view controller 
     func handleYesButton(sender: AnyObject? ) {
+        
         let childRef = ref.child("users").child(uid!).child("friends").child((sender?.user.uid)!)
         let values = ["Friends?": "Yes"]
         childRef.updateChildValues(values)
@@ -224,7 +354,10 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let value = ["Message": realUpdate, "Type": "Friend", "OtherUID": updateUID, "profileImageURL": url, "read": readString, "Occupation": positionString]
         
         userReference.updateChildValues(value)
-        
+        if (firstGreenArrowBool) {
+            greenArrow(sender: sender as! FeedController.GenericCellButton)
+            firstGreenArrowBool = false
+        } else {
         if (sender?.user.occupation == "Employer") {
             let segueController = EmployerViewController(nibName: nil, bundle: nil)
             segueController.user = (sender?.user)!
@@ -233,24 +366,55 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let segueController = StudentViewController(user: (sender?.user)!)
             present(segueController, animated: true, completion: nil)
         }
+        }
+        
+//
         
         
+       
         
-        
+    }
+    func handleScreenshot(sender: GenericCellButton) {
+        let segueController = StudentScreenshotViewController(nibName: nil, bundle: nil)
+        segueController.user = (sender.user)
+        if (self.passedInString != nil) {
+        segueController.passedInString = self.passedInString!
+        } else {
+            segueController.passedInString = ""
+        }
+        if (self.passedInInt != nil) {
+        segueController.passedInInt = self.passedInInt!
+        }
+        segueController.searchBool = true
+        present(segueController, animated: true, completion: nil)
     }
     
     //When you press no, it moves to the next person
     func handleNoButton(sender: AnyObject? ) {
-        if ((sender?.value)! + 1 < userList.count) {
-            let indexPath = NSIndexPath(row: (sender?.value)! + 1, section: 0)
-            tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
-            
+        if (firstRedCrossBool) {
+            redCross(row: (sender?.value)!, uid: (sender?.userID)!)
+            firstRedCrossBool = false
         } else {
-            let indexPath = NSIndexPath(row: 0, section: 0)
-            tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
-            
-        }
         
+            
+            userList.remove(at: (sender?.value)!)
+
+            if ((sender?.value)!  > userList.count) {
+                let indexPath = IndexPath(row: 0, section: 0)
+                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            } else {
+                let indexPath = IndexPath(row: (sender?.value)! + 1, section: 0)
+                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                
+            }
+        
+        ref.child("users").child(uid!).child("Archived").child((sender?.userID)!).updateChildValues(["Archived?": "Yes" as NSString])
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        }
+       
         
     }
     
@@ -277,40 +441,103 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
     }
+    
+    func fetchArchive() {
+        self.userList.removeAll()
+        
+        ref.child("users").child(self.uid!).child("Archived").observe(.childAdded, with: { (snapshot) in
+            if (snapshot.hasChildren()) {
+            let user = User()
+            user.uid = snapshot.key
+            
+                self.ref.child("users").child(user.uid).observe(.value, with: { (snapshot2) in
+                let dictionary = snapshot2.value as! [String: AnyObject]
+                if ((dictionary["name"] as? String) != nil) {
+                    user.name = (dictionary["name"] as? String)!
+                } else {
+                    user.name = "Placeholder"
+                }
+                if ((dictionary["userVideoURL"] as? String) != nil) {
+                    
+                    user.videoURL = dictionary["userVideoURL"] as! String
+                }
+                
+                if ((dictionary["Occupation"] as? String) != nil) {
+                    user.occupation = (dictionary["Occupation"] as? String)!
+                    user.companyLabel = (dictionary["Occupation"] as? String)!
+                    if (user.occupation == "Employer" && dictionary["Company"] as? String != nil) {
+                        user.companyLabel = (dictionary["Company"] as? String)!
+                    } else if (user.occupation == "Student" && dictionary["Unversity"] as? String != nil) {
+                        user.companyLabel = (dictionary["Unversity"] as? String)!
+                    }
+                }
+                
+                if (dictionary["thumbnailImageURL"] as! String?) != nil {
+                    user.thumbnailImageURL = (dictionary["thumbnailImageURL"] as! String?)!
+                    
+                    
+                    
+                }
+                if ((dictionary["profileImageURL"] as! String?) != nil) {
+                    user.profileImageURL = (dictionary["profileImageURL"] as! String?)!
+                } else {
+                    user.profileImageURL = "NIL"
+                }
+                
+                
+                self.userList.append(user)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    
+                }
+
+            
+                })
+            
+            }
+            
+        })
+        
+    }
 
     
     
     func fetchUsers() {
         self.userList.removeAll()
         var checkBool = true
-        
         var recruiterOrAll = true
-        ref.child("users").observe(.childAdded, with: {  (snapshot) in
-            
+        var dict3 = [String: AnyObject]()
+        var keys = [String]()
+        ref.child("users").observe(.value, with: {  (snapshot) in
+            let topDict = snapshot.value as! [String: AnyObject]
+                let dict2 = topDict[self.uid!]
+            if (dict2?["Archived"] as? [String: AnyObject] != nil) {
+                    dict3 = dict2?["Archived"] as! [String: AnyObject]
+                    
+                    //Extract all the keys
+                    keys = dict3.flatMap(){ $0.0 as? String }
+                    
+                   
+                    
+                }
 
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    if (self.searchBool == nil) {
-                        self.searchBool = false
-                    }
-                    switch self.searchBool! {
-                    case false:
-                        if ((dictionary["Occupation"] as? String) != globalFeedString) {
-                            recruiterOrAll = false
-                            
-                            break
-                            
-                        }
-                        else {
-                            recruiterOrAll = true
-                            
-                        }
-                    default:
+            
+            for i in 0..<topDict.count {
+                let dictionary = topDict[topDict.index(topDict.startIndex, offsetBy: i)].value as! [String: AnyObject]
+                
+                
+                    
+                    if ((dictionary["Occupation"] as? String) != globalFeedString) {
+                        recruiterOrAll = false
+                    
+                    
+                    
+                    } else {
                         recruiterOrAll = true
-                        break
                     }
                     if (recruiterOrAll) {
                         if (self.passedInInt == nil) {
-                            self.passedInInt = 5
+                            self.passedInInt = 6
                         }
                         switch self.passedInInt! {
                         case 0:
@@ -341,8 +568,7 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             
                             
                         case 3:
-                            if (snapshot.key != self.passedInString!) {
-                                
+                            if (topDict[topDict.index(topDict.startIndex, offsetBy: i)].key != self.passedInString!) {
                                 checkBool = false
                                 break
                             }
@@ -356,14 +582,61 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             }
                             checkBool = true
                             break
+                        case 5:
+                            
+                            if (self.passedMajorList.count != 0) {
+                                if (dictionary["Major"] as? String != nil) {
+                                if (self.passedMajorList.contains((dictionary["Major"] as? String)!)) {
+                                    checkBool = true
+                                } else {
+                                    checkBool = false
+                                    break
+                                }
+                                } else {
+                                    checkBool = false
+                                    break
+                                }
+                            }
+                            if (self.passedUniversityList.count != 0) {
+                                if (dictionary["Unversity"] as? String != nil) {
+                                if (!self.passedUniversityList.contains((dictionary["Unversity"] as? String)!)) {
+                                    checkBool = false
+                                    break
+                                }
+                                } else {
+                                    checkBool = false
+                                    break
+                                    
+                                }
+                            }
+                            if (self.passedSkillsList.count != 0) {
+                                if (dictionary["Skill 1"] as? String != nil && (self.passedSkillsList.contains(dictionary["Skill 1"] as! String))) {
+                                    checkBool = true
+                                    break
+                                    } else if (dictionary["Skill 2"] as? String != nil && (self.passedSkillsList.contains(dictionary["Skill 2"] as! String))) {
+                                    checkBool = true
+                                    break
+                                    } else if (dictionary["Skill 3"] as? String != nil && (self.passedSkillsList.contains(dictionary["Skill 3"] as! String))) {
+                                    checkBool = true
+                                    break
+                                    } else if (dictionary["Skill 4"] as? String != nil && (self.passedSkillsList.contains(dictionary["Skill 4"] as! String))) {
+                                    checkBool = true
+                                    break
+                                    }
+                                checkBool = false
+                                break
+                            }
+                            
                         default:
                             checkBool = true
                             break
                             
                         }
                         if (checkBool) {
-                            
                             let user = User()
+                            user.uid = topDict[topDict.index(topDict.startIndex, offsetBy: i)].key
+                            
+                            if (!keys.contains(user.uid)) {
                             if ((dictionary["name"] as? String) != nil) {
                                 user.name = (dictionary["name"] as? String)!
                             } else {
@@ -373,14 +646,14 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                 
                                 user.videoURL = dictionary["userVideoURL"] as! String
                             }
-                            user.uid = snapshot.key
+                            
                             if ((dictionary["Occupation"] as? String) != nil) {
                                 user.occupation = (dictionary["Occupation"] as? String)!
                                 user.companyLabel = (dictionary["Occupation"] as? String)!
                                 if (user.occupation == "Employer" && dictionary["Company"] as? String != nil) {
                                     user.companyLabel = (dictionary["Company"] as? String)!
-                                } else if (user.occupation == "Student" && dictionary["University"] as? String != nil) {
-                                    user.companyLabel = (dictionary["University"] as? String)!
+                                } else if (user.occupation == "Student" && dictionary["Unversity"] as? String != nil) {
+                                    user.companyLabel = (dictionary["Unversity"] as? String)!
                                 }
                             }
                             
@@ -395,13 +668,17 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             } else {
                                 user.profileImageURL = "NIL"
                             }
+                            
+                            
                             self.userList.append(user)
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
                                 
                             }
                             
+                            }
                         }
+                        
                     }
                     
                 }
@@ -528,6 +805,32 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
 
+    
+    func handleSearchForOccupation(sender: GenericCellButton) {
+        
+        
+        
+        if (sender.user.companyLabel == "Employer" || sender.user.companyLabel == "Student") {
+            let alert = UIAlertController(title: "Cannot Search", message: "User has not provided company or university", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+        } else {
+            let segueController = FeedController(nibName: nil, bundle: nil)
+            segueController.passedInString = sender.user.companyLabel
+            segueController.searchBool = true
+            if (sender.user.occupation == "Employer") {
+               segueController.passedInInt = 2
+                
+            } else {
+               segueController.passedInInt = 1
+            }
+            present(segueController, animated: true, completion: nil)
+        }
+        
+        
+        
+    }
 
     
     
@@ -559,6 +862,48 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     else {
                         globalFeedString = "Employer"
                     }
+                    if (dictionary["HelpViews"] != nil) {
+                    self.dict2 = (dictionary["HelpViews"] as? [String: AnyObject])!
+                        print(self.dict2, "This is the dictionary")
+                    if (self.dict2["FirstTimeSignUp"] as? String != nil) {
+                        if (self.dict2["FirstTimeSignUp"] as? String == "true") {
+                        self.feed()
+                            
+                        }
+                    }
+                    if (self.dict2["FirstTimeConnect"] as? String != nil) {
+                        if (self.dict2["FirstTimeConnect"] as? String == "true") {
+                            firstGreenArrowBool = true
+                        } else {
+                            firstGreenArrowBool = false
+                        }
+                    }
+                    if (self.dict2["FirstTimeReject"] as? String != nil) {
+                        if (self.dict2["FirstTimeReject"] as? String == "true") {
+                            firstRedCrossBool = true
+                        }
+                    } else {
+                        firstRedCrossBool = false
+
+                    }
+                        if (self.dict2["FirstTimeCalendar"] as? String != nil) {
+                            if (self.dict2["FirstTimeCalendar"] as? String == "true") {
+                                print("Hello")
+                                firstTimeCalendar = true
+                                print(firstTimeCalendar, "This is also firstTimeCalendar")
+                            }
+                        } else {
+                            firstTimeCalendar = false
+                        }
+                        if (self.dict2["FirstTimeSearch"] as? String != nil) {
+                            if (self.dict2["FirstTimeSearch"] as? String == "true") {
+                                firstTimeSearch = true
+                            }
+                        } else {
+                            firstTimeSearch = false
+                        }
+                    
+                }
                 }
         })
         self.view.addSubview(tableView)
@@ -570,7 +915,12 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
         refreshControl = UIRefreshControl()
         tableView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(fetchUsers), for: UIControlEvents.valueChanged)
+        
+        if (isArchived) {
+            fetchArchive()
+        } else {
         fetchUsers()
+        }
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -655,7 +1005,7 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         view.addGestureRecognizer(tap)
-        
+      
     }
     class Cell: UITableViewCell {
         var cellButton = UIButton()
@@ -680,22 +1030,25 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return userList.count
     }
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = FeedTableViewCell(style: .subtitle, reuseIdentifier: cellID)
+
         let border = CALayer()
         let borderWidth = CGFloat(5.0)
         border.borderColor = UIColor.lightGray.cgColor
-        let height = 0.75 * (view.frame.size.height - 120)
+        let height = (view.frame.size.height - 120)
         border.frame = CGRect(x: 0, y: height - borderWidth, width:  view.frame.size.width , height: height)
-        
         border.borderWidth = borderWidth
-        let cell = FeedTableViewCell(style: .subtitle, reuseIdentifier: cellID)
+        cell.layer.addSublayer(border)
+        
+        
         cell.selectionStyle = .none
         let cellWidth = cell.bounds.width
-        cell.layer.addSublayer(border)
+        
         cell.layer.masksToBounds = true
         let curUser = userList[indexPath.row] as User
         cell.activityIndicator = UIActivityIndicatorView()
         cell.object = curUser
-        let cellLabel = UILabel()
+        let cellLabel = GenericCellButton()
         cell.addSubview(cellLabel)
         let width  = self.view.bounds.width - 40
         let cellButton = GenericCellButton()
@@ -720,8 +1073,8 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cellImageView.layer.cornerRadius = 17.5
         cellImageView.layer.masksToBounds = true
         cellNoButton.value = indexPath.row
-        cellNoButton.setBackgroundImage(UIImage(named: "checkNoIcon"), for: .normal)
-        cellNoButton.alpha = 0.3
+        cellNoButton.userID = userList[indexPath.row].uid
+        cellNoButton.setBackgroundImage(UIImage(named: "RedCross"), for: .normal)
         cellNoButton.addTarget(self, action: #selector(handleNoButton), for: .touchUpInside)
         cellNoButton.translatesAutoresizingMaskIntoConstraints = false
         cellNoButton.bottomAnchor.constraint(equalTo: cellButton.bottomAnchor).isActive = true
@@ -751,22 +1104,21 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         cellButton.backgroundColor = UIColor.white
         cellButton.translatesAutoresizingMaskIntoConstraints = false
-        cellButton.setBackgroundImage(UIImage(named: "CheckYesIcon"), for: .normal)
+        cellButton.setBackgroundImage(UIImage(named: "GreenArrow"), for: .normal)
         cellButton.bottomAnchor.constraint(equalTo: cellCheckButton.bottomAnchor, constant: -15).isActive = true
-        cellButton.heightAnchor.constraint(equalTo: cellNoButton.widthAnchor).isActive = true
+        cellButton.heightAnchor.constraint(equalTo: cellNoButton.heightAnchor, constant: 1.2).isActive = true
         cellButton.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -1 * width / 6 ).isActive = true
         cellButton.isUserInteractionEnabled = true
         cellButton.user = userList[indexPath.row]
         cellButton.addTarget(self, action: #selector(handleYesButton), for: .touchUpInside)
         cellButton.widthAnchor.constraint(equalTo: cellNoButton.widthAnchor).isActive = true
-        cellButton.alpha = 0.3
         
         cell.object?.imageView?.loadImageUsingCacheWithURLString(urlString: curUser.thumbnailImageURL)
         cell.object?.imageView?.translatesAutoresizingMaskIntoConstraints = false
         cell.object?.imageView?.widthAnchor.constraint(equalTo: cell.widthAnchor).isActive = true
-        cell.object?.imageView?.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 4).isActive = true
+        cell.object?.imageView?.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3.5).isActive = true
         cell.object?.imageView?.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-        cell.object?.imageView?.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+        cell.object?.imageView?.centerYAnchor.constraint(equalTo: cell.centerYAnchor, constant: -50).isActive = true
         
         
         
@@ -783,30 +1135,34 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
        
         
 
-        let cellLabelOccupation = UILabel()
-        cell.addSubview(cellLabelOccupation)
-        cellLabelOccupation.text = userList[indexPath.row].companyLabel
-        cellLabelOccupation.translatesAutoresizingMaskIntoConstraints = false
-        cellLabelOccupation.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 5).isActive = true
-        cellLabelOccupation.rightAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-        cellLabelOccupation.bottomAnchor.constraint(equalTo: cellImageView.bottomAnchor, constant: 5).isActive = true
-        cellLabelOccupation.font = UIFont(name: "AppleSDGothicNeo", size: 4)
+
         
+        let cellLabelOccupy = GenericCellButton()
+        cell.addSubview(cellLabelOccupy)
+        cellLabelOccupy.translatesAutoresizingMaskIntoConstraints = false
+        cellLabelOccupy.setTitle(userList[indexPath.row].companyLabel, for: .normal)
+        cellLabelOccupy.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 5).isActive = true
+        cellLabelOccupy.bottomAnchor.constraint(equalTo: cellImageView.bottomAnchor, constant: 10).isActive = true
+        cellLabelOccupy.setTitleColor(UIColor.black, for: .normal)
+        cellLabelOccupy.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 20)
+        cellLabelOccupy.user = userList[indexPath.row]
+        cellLabelOccupy.addTarget(self, action: #selector(handleSearchForOccupation), for: .touchUpInside)
         
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
-        cellLabel.bottomAnchor.constraint(equalTo: cellLabelOccupation.topAnchor, constant: 2).isActive = true
-        cellLabel.leftAnchor.constraint(equalTo: cellLabelOccupation.leftAnchor).isActive = true
-        cellLabel.text = userList[indexPath.row].name
-        cellLabel.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+
+        cellLabel.leftAnchor.constraint(equalTo: cellLabelOccupy.leftAnchor).isActive = true
+        cellLabel.bottomAnchor.constraint(equalTo: cellImageView.topAnchor, constant: 20).isActive = true
         
-      
+       
+        cellLabel.setTitle(userList[indexPath.row].name, for: .normal)
+        cellLabel.setTitleColor(UIColor.black, for: .normal)
+        cellLabel.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+
+        cellLabel.user = userList[indexPath.row]
+        cellLabel.addTarget(self, action: #selector(handleScreenshot), for: .touchUpInside)
         
         
-        
-        
-        
-      
-        
+       
         return cell
     }
     
@@ -814,7 +1170,7 @@ class FeedController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let height = view.frame.size.height - 120
         
-        return 0.75 * height
+        return height
     }
 
 

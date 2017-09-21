@@ -74,8 +74,31 @@ class SetNameViewController: UIViewController {
         present(segueController, animated: true, completion: nil)
         
     }
+    class linkButton: UIButton {
+        var linkURL = String()
+    }
     
     
+    func handleURL(sender: linkButton) {
+        if (sender.linkURL != "") {
+            openURL(url: sender.linkURL)
+        } else {
+            let alert = UIAlertController(title: "Failure", message: "No link available. Feel free to add one in.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    func openURL(url: String) {
+        let passedURL = URL(string: url)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(passedURL!, options: [:], completionHandler: nil)
+            print(passedURL, "This is the passdURL")
+        } else {
+            UIApplication.shared.openURL(passedURL!)
+            print(passedURL, "This is the passdURL")
+            
+        }
+    }
     //View Did load 
     
 
@@ -92,6 +115,7 @@ class SetNameViewController: UIViewController {
         backButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10).isActive = true
         backButton.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
         backButton.widthAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+        backButton.contentEdgeInsets = UIEdgeInsetsMake(-3, -3, -3, -3)
         backButton.setImage(UIImage(named: "arrowIcon"), for: .normal)
         backButton.addTarget(self, action: #selector(handleMoveToLanding), for: .touchUpInside)
         
@@ -145,8 +169,9 @@ class SetNameViewController: UIViewController {
         disclaimerLabel.font = UIFont(name: "AppleSDGothicNeo-Regular" , size: 15)
         
         
-        let servicesButton = UIButton()
+        let servicesButton = linkButton()
         self.view.addSubview(servicesButton)
+        servicesButton.linkURL = "https://elevatedpitch.github.io/privacypolicy.html"
         servicesButton.translatesAutoresizingMaskIntoConstraints = false
         servicesButton.leftAnchor.constraint(equalTo: disclaimerLabel.leftAnchor, constant: 2).isActive = true
         servicesButton.topAnchor.constraint(equalTo: disclaimerLabel.bottomAnchor).isActive = true
@@ -154,7 +179,7 @@ class SetNameViewController: UIViewController {
         servicesButton.setTitle("Terms of Services", for: .normal)
         servicesButton.setTitleColor(UIColor(red: 100/255, green: 149/255, blue: 245/255, alpha: 1), for: .normal)
         servicesButton.titleLabel?.font =  UIFont(name: "AppleSDGothicNeo-Bold" , size: 15)
-        
+        servicesButton.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
         //Cannot believe I have a separate label for this
         let andLabel = UILabel()
         self.view.addSubview(andLabel)
@@ -168,8 +193,9 @@ class SetNameViewController: UIViewController {
         
         
         
-        let privacyButton = UIButton()
+        let privacyButton = linkButton()
         self.view.addSubview(privacyButton)
+        privacyButton.linkURL = "https://elevatedpitch.github.io/privacypolicy.html"
         privacyButton.translatesAutoresizingMaskIntoConstraints = false
         privacyButton.leftAnchor.constraint(equalTo: andLabel.rightAnchor).isActive = true
         privacyButton.topAnchor.constraint(equalTo: disclaimerLabel.bottomAnchor).isActive = true
@@ -177,7 +203,7 @@ class SetNameViewController: UIViewController {
         privacyButton.setTitle("Privacy Policy", for: .normal)
         privacyButton.setTitleColor(UIColor(red: 100/255, green: 149/255, blue: 245/255, alpha: 1), for: .normal)
         privacyButton.titleLabel?.font =  UIFont(name: "AppleSDGothicNeo-Bold" , size: 15)
-
+        privacyButton.addTarget(self, action: #selector(handleURL), for: .touchUpInside)
         
         let signUpButton = UIButton()
         self.view.addSubview(signUpButton)

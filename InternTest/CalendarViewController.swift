@@ -17,19 +17,83 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     //Initialization of variables. 
     
     let dayDictionary = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    
+    var helpView = UIView()
     
     
     //-----------------------------------------------------------------------
     
     //HELPER FUNCTIONS AND VIEWDIDLOAD
     
+    
+    
+    func setUpHelpView() {
+        self.view.addSubview(helpView)
+        helpView.translatesAutoresizingMaskIntoConstraints = false
+        helpView.heightAnchor.constraint(equalToConstant: self.view.bounds.height / 2.3).isActive = true
+        helpView.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.8).isActive = true
+        helpView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        helpView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        helpView.backgroundColor = UIColor.white
+        helpView.layer.borderColor = UIColor.black.cgColor
+        helpView.layer.borderWidth = 1
+        helpView.layer.cornerRadius = 5
+        let titleLabel = UILabel()
+        helpView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.text = "Welcome to Calendar"
+        titleLabel.centerXAnchor.constraint(equalTo: helpView.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: helpView.topAnchor, constant: 10).isActive = true
+        titleLabel.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 30)
+        
+        
+        let helpLabel = UILabel()
+        helpView.addSubview(helpLabel)
+        helpLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        helpLabel.text = "This is where you can set meetings with other users.  If you're a recruiter, go to a student's profile and check out the times they're free to set a meeting."
+        helpLabel.numberOfLines = 0
+        helpLabel.lineBreakMode = .byWordWrapping
+        helpLabel.centerXAnchor.constraint(equalTo: helpView.centerXAnchor).isActive = true
+        helpLabel.centerYAnchor.constraint(equalTo: helpView.centerYAnchor).isActive = true
+        helpLabel.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.7).isActive = true
+        helpLabel.textAlignment = .center
+        helpLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+        tableView.alpha = 0.8
+        
+        let continueButton = UIButton()
+        helpView.addSubview(continueButton)
+        continueButton.translatesAutoresizingMaskIntoConstraints = false
+        continueButton.centerXAnchor.constraint(equalTo: helpView.centerXAnchor).isActive = true
+        continueButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.5).isActive = true
+        continueButton.topAnchor.constraint(equalTo: helpLabel.bottomAnchor, constant: 20).isActive = true
+        continueButton.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+        continueButton.setTitle("Get Started", for: .normal)
+        continueButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 16)
+        continueButton.setTitleColor(UIColor.white, for: .normal)
+        continueButton.layer.cornerRadius = 10
+        continueButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
+        continueButton.addTarget(self, action: #selector(removeHelpView), for: .touchUpInside)
+        
+        
+        
+    }
+    
+    
+    func removeHelpView() {
+        helpView.removeFromSuperview()
+        tableView.alpha = 1
+        let ref = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("HelpViews")
+        firstTimeCalendar = false
+        let value = ["FirstTimeCalendar": "false" as NSString]
+        ref.updateChildValues(value)
+    }
+
     //Student times to display in the tableView
     func fetchStudentTimes() {
         
             let ref = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("Reminders")
             ref.observe(.value, with: { (snapshot) in
-                
+                if (snapshot.value as? [String: AnyObject] != nil) {
                 let dictionary = snapshot.value as! [String: AnyObject]
                 
                 for day in self.dayDictionary {
@@ -99,6 +163,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             
             
             }
+                }
             })
         }
     
@@ -314,8 +379,10 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)
         titleLabel.text = "Calendar"
-
-        
+        if (firstTimeCalendar) {
+            setUpHelpView()
+  
+        }
        
     }
     

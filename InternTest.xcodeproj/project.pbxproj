@@ -13,6 +13,7 @@
 		B7097D931E108AEC00CA1C56 /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7097D921E108AEC00CA1C56 /* ProfilePageViewController.swift */; };
 		B7097D951E1CF38300CA1C56 /* VideoChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7097D941E1CF38300CA1C56 /* VideoChooseViewController.swift */; };
 		B7097D971E1DA37F00CA1C56 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7097D961E1DA37F00CA1C56 /* LandingPageViewController.swift */; };
+		B70EE31B1F6844B000FE4171 /* AddLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70EE31A1F6844AF00FE4171 /* AddLinkViewController.swift */; };
 		B71483E61E711E9F00F37453 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71483E51E711E9F00F37453 /* ImageExtension.swift */; };
 		B71483E81E7266CC00F37453 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71483E71E7266CC00F37453 /* Messages.swift */; };
 		B72834271E0B125D007CD400 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72834261E0B125D007CD400 /* AppDelegate.swift */; };
@@ -39,13 +40,16 @@
 		B752D43E1F0A283900EAC75B /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B732FAA31E2CD480005514CE /* FeedController.swift */; };
 		B752D4401F0AFC8800EAC75B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B752D43F1F0AFC8800EAC75B /* SearchViewController.swift */; };
 		B76AF1F61F2AF52C00E69252 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76AF1F51F2AF52C00E69252 /* FeedTableViewCell.swift */; };
+		B7A2C3531F6BA7A900A550C6 /* StudentScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2C3521F6BA7A900A550C6 /* StudentScreenshotViewController.swift */; };
+		B7A2C3551F6FD80700A550C6 /* EditTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2C3541F6FD80700A550C6 /* EditTimeViewController.swift */; };
+		B7A2C3571F718FC800A550C6 /* ConfirmVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2C3561F718FC800A550C6 /* ConfirmVideoViewController.swift */; };
+		B7A2C35B1F73728800A550C6 /* AdvancedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2C35A1F73728800A550C6 /* AdvancedSearchViewController.swift */; };
 		B7AE89391F2BC15300914699 /* ForgotPasswordLandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE89381F2BC15300914699 /* ForgotPasswordLandingViewController.swift */; };
 		B7AE893B1F2C627500914699 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE893A1F2C627500914699 /* ChangePasswordViewController.swift */; };
 		B7AE893D1F2FE1E000914699 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE893C1F2FE1DF00914699 /* CustomCell.swift */; };
 		B7AE89421F36CEE800914699 /* SignUpUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE89411F36CEE800914699 /* SignUpUser.swift */; };
 		B7C658D91E8EEB1A0081B06E /* SetPositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C658D81E8EEB1A0081B06E /* SetPositionViewController.swift */; };
 		B7C658DB1E8F125C0081B06E /* StudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C658DA1E8F125C0081B06E /* StudentViewController.swift */; };
-		B7D4800D1F1698C00080E8C2 /* FullSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4800C1F1698C00080E8C2 /* FullSearchViewController.swift */; };
 		B7D480131F173D600080E8C2 /* SetReminderViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D480121F173D600080E8C2 /* SetReminderViewController1.swift */; };
 		B7D480151F173D9D0080E8C2 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D480141F173D9D0080E8C2 /* Reminder.swift */; };
 		B7D480171F1762430080E8C2 /* SetUpFreeTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D480161F1762430080E8C2 /* SetUpFreeTimeViewController.swift */; };
@@ -53,11 +57,11 @@
 		B7D4801B1F1F40080080E8C2 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4801A1F1F40080080E8C2 /* TodoItem.swift */; };
 		B7D4801D1F1F40120080E8C2 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D4801C1F1F40120080E8C2 /* TodoList.swift */; };
 		B7D541331ED0E0ED006282DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D541321ED0E0ED006282DF /* Extensions.swift */; };
+		B7E3B2F11F74661C008320C8 /* StudentLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E3B2F01F74661C008320C8 /* StudentLinksViewController.swift */; };
 		B7EEB1331F42627F00F101C6 /* SetBioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EEB1321F42627F00F101C6 /* SetBioViewController.swift */; };
 		B7EEB1351F42C22700F101C6 /* SetSkillsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EEB1341F42C22700F101C6 /* SetSkillsViewController.swift */; };
 		B7EEB1371F46DB6B00F101C6 /* SetReminderViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EEB1361F46DB6B00F101C6 /* SetReminderViewController2.swift */; };
 		B7EEB1391F47D65A00F101C6 /* AnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EEB1381F47D65A00F101C6 /* AnimationController.swift */; };
-		B7EEB13B1F48F6AC00F101C6 /* SetLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EEB13A1F48F6AC00F101C6 /* SetLinkViewController.swift */; };
 		B7F5075B1E4EFE10002F686B /* CameraChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F5075A1E4EFE10002F686B /* CameraChooseViewController.swift */; };
 		B7F5075D1E4F19AB002F686B /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F5075C1E4F19AB002F686B /* SetPasswordViewController.swift */; };
 		B7F63DD21E30762E009770BE /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F63DD11E30762E009770BE /* ChatController.swift */; };
@@ -89,6 +93,7 @@
 		B7097D921E108AEC00CA1C56 /* ProfilePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
 		B7097D941E1CF38300CA1C56 /* VideoChooseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoChooseViewController.swift; sourceTree = "<group>"; };
 		B7097D961E1DA37F00CA1C56 /* LandingPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
+		B70EE31A1F6844AF00FE4171 /* AddLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLinkViewController.swift; sourceTree = "<group>"; };
 		B71483E51E711E9F00F37453 /* ImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
 		B71483E71E7266CC00F37453 /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		B72834231E0B125D007CD400 /* InternTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InternTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +125,10 @@
 		B752D43C1F09ECDD00EAC75B /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		B752D43F1F0AFC8800EAC75B /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B76AF1F51F2AF52C00E69252 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		B7A2C3521F6BA7A900A550C6 /* StudentScreenshotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentScreenshotViewController.swift; sourceTree = "<group>"; };
+		B7A2C3541F6FD80700A550C6 /* EditTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTimeViewController.swift; sourceTree = "<group>"; };
+		B7A2C3561F718FC800A550C6 /* ConfirmVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmVideoViewController.swift; sourceTree = "<group>"; };
+		B7A2C35A1F73728800A550C6 /* AdvancedSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSearchViewController.swift; sourceTree = "<group>"; };
 		B7AE89381F2BC15300914699 /* ForgotPasswordLandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForgotPasswordLandingViewController.swift; path = ../ForgotPasswordLandingViewController.swift; sourceTree = "<group>"; };
 		B7AE893A1F2C627500914699 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		B7AE893C1F2FE1DF00914699 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
@@ -127,7 +136,6 @@
 		B7AE89411F36CEE800914699 /* SignUpUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUser.swift; sourceTree = "<group>"; };
 		B7C658D81E8EEB1A0081B06E /* SetPositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPositionViewController.swift; sourceTree = "<group>"; };
 		B7C658DA1E8F125C0081B06E /* StudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentViewController.swift; sourceTree = "<group>"; };
-		B7D4800C1F1698C00080E8C2 /* FullSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullSearchViewController.swift; sourceTree = "<group>"; };
 		B7D480121F173D600080E8C2 /* SetReminderViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetReminderViewController1.swift; sourceTree = "<group>"; };
 		B7D480141F173D9D0080E8C2 /* Reminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		B7D480161F1762430080E8C2 /* SetUpFreeTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetUpFreeTimeViewController.swift; sourceTree = "<group>"; };
@@ -135,12 +143,12 @@
 		B7D4801A1F1F40080080E8C2 /* TodoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		B7D4801C1F1F40120080E8C2 /* TodoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		B7D541321ED0E0ED006282DF /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B7E3B2F01F74661C008320C8 /* StudentLinksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLinksViewController.swift; sourceTree = "<group>"; };
 		B7EB8CF81F220532006611B8 /* InternTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InternTest.entitlements; sourceTree = "<group>"; };
 		B7EEB1321F42627F00F101C6 /* SetBioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetBioViewController.swift; sourceTree = "<group>"; };
 		B7EEB1341F42C22700F101C6 /* SetSkillsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSkillsViewController.swift; sourceTree = "<group>"; };
 		B7EEB1361F46DB6B00F101C6 /* SetReminderViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetReminderViewController2.swift; sourceTree = "<group>"; };
 		B7EEB1381F47D65A00F101C6 /* AnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationController.swift; sourceTree = "<group>"; };
-		B7EEB13A1F48F6AC00F101C6 /* SetLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetLinkViewController.swift; sourceTree = "<group>"; };
 		B7F5075A1E4EFE10002F686B /* CameraChooseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraChooseViewController.swift; sourceTree = "<group>"; };
 		B7F5075C1E4F19AB002F686B /* SetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		B7F63DD11E30762E009770BE /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
@@ -289,7 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				B752D43F1F0AFC8800EAC75B /* SearchViewController.swift */,
-				B7D4800C1F1698C00080E8C2 /* FullSearchViewController.swift */,
+				B7A2C35A1F73728800A550C6 /* AdvancedSearchViewController.swift */,
 			);
 			name = "Search Controller";
 			sourceTree = "<group>";
@@ -303,6 +311,8 @@
 				B76AF1F51F2AF52C00E69252 /* FeedTableViewCell.swift */,
 				B7C658DA1E8F125C0081B06E /* StudentViewController.swift */,
 				B73ABCC71F5A655900CA91A6 /* StudentScheduleViewController.swift */,
+				B7E3B2F01F74661C008320C8 /* StudentLinksViewController.swift */,
+				B7A2C3521F6BA7A900A550C6 /* StudentScreenshotViewController.swift */,
 				B752D43A1F09E79800EAC75B /* NotificationCenterViewController.swift */,
 				B73ABCC31F571EF400CA91A6 /* EmployerViewController.swift */,
 			);
@@ -338,11 +348,12 @@
 				B7AE89381F2BC15300914699 /* ForgotPasswordLandingViewController.swift */,
 				B7C658D81E8EEB1A0081B06E /* SetPositionViewController.swift */,
 				B7097D921E108AEC00CA1C56 /* ProfilePageViewController.swift */,
+				B70EE31A1F6844AF00FE4171 /* AddLinkViewController.swift */,
 				B73ABCC11F56AD2600CA91A6 /* SettingsViewController.swift */,
-				B7EEB13A1F48F6AC00F101C6 /* SetLinkViewController.swift */,
-				B7F5075A1E4EFE10002F686B /* CameraChooseViewController.swift */,
 				B7AE893A1F2C627500914699 /* ChangePasswordViewController.swift */,
+				B7F5075A1E4EFE10002F686B /* CameraChooseViewController.swift */,
 				B7097D941E1CF38300CA1C56 /* VideoChooseViewController.swift */,
+				B7A2C3561F718FC800A550C6 /* ConfirmVideoViewController.swift */,
 				B7AE89401F308D1100914699 /* InternTest-Bridging-Header.h */,
 			);
 			name = Pipeline;
@@ -353,6 +364,7 @@
 			children = (
 				B7D480181F1D87D10080E8C2 /* CalendarViewController.swift */,
 				B7D480161F1762430080E8C2 /* SetUpFreeTimeViewController.swift */,
+				B7A2C3541F6FD80700A550C6 /* EditTimeViewController.swift */,
 				B7D480121F173D600080E8C2 /* SetReminderViewController1.swift */,
 				B7EEB1361F46DB6B00F101C6 /* SetReminderViewController2.swift */,
 			);
@@ -650,6 +662,7 @@
 				B71483E81E7266CC00F37453 /* Messages.swift in Sources */,
 				B72834291E0B125D007CD400 /* SetBirthdayViewController.swift in Sources */,
 				B7EEB1371F46DB6B00F101C6 /* SetReminderViewController2.swift in Sources */,
+				B7A2C3531F6BA7A900A550C6 /* StudentScreenshotViewController.swift in Sources */,
 				B73ABCC81F5A655900CA91A6 /* StudentScheduleViewController.swift in Sources */,
 				B7F5075D1E4F19AB002F686B /* SetPasswordViewController.swift in Sources */,
 				B752D4351EFEF6FC00EAC75B /* SetNameViewController.swift in Sources */,
@@ -657,18 +670,20 @@
 				B7097D911E0F7AA900CA1C56 /* SetEmailViewController.swift in Sources */,
 				B72834271E0B125D007CD400 /* AppDelegate.swift in Sources */,
 				B732FAA41E2CD480005514CE /* FeedController.swift in Sources */,
+				B7A2C3551F6FD80700A550C6 /* EditTimeViewController.swift in Sources */,
 				B7D480151F173D9D0080E8C2 /* Reminder.swift in Sources */,
 				B76AF1F61F2AF52C00E69252 /* FeedTableViewCell.swift in Sources */,
+				B7E3B2F11F74661C008320C8 /* StudentLinksViewController.swift in Sources */,
 				B7C658D91E8EEB1A0081B06E /* SetPositionViewController.swift in Sources */,
 				B72834551E0B1487007CD400 /* VerificationCodeViewController.swift in Sources */,
 				B7D541331ED0E0ED006282DF /* Extensions.swift in Sources */,
 				B71483E61E711E9F00F37453 /* ImageExtension.swift in Sources */,
 				B7D480191F1D87D10080E8C2 /* CalendarViewController.swift in Sources */,
-				B7D4800D1F1698C00080E8C2 /* FullSearchViewController.swift in Sources */,
 				B7D4801B1F1F40080080E8C2 /* TodoItem.swift in Sources */,
 				B7EEB1331F42627F00F101C6 /* SetBioViewController.swift in Sources */,
 				B7F5075B1E4EFE10002F686B /* CameraChooseViewController.swift in Sources */,
 				B73ABCC01F56A90100CA91A6 /* SetMissionViewController.swift in Sources */,
+				B70EE31B1F6844B000FE4171 /* AddLinkViewController.swift in Sources */,
 				B7097D971E1DA37F00CA1C56 /* LandingPageViewController.swift in Sources */,
 				B7D4801D1F1F40120080E8C2 /* TodoList.swift in Sources */,
 				B7D480131F173D600080E8C2 /* SetReminderViewController1.swift in Sources */,
@@ -682,15 +697,16 @@
 				B73ABCC41F571EF400CA91A6 /* EmployerViewController.swift in Sources */,
 				B752D43D1F09ECDD00EAC75B /* Notification.swift in Sources */,
 				B7AE89421F36CEE800914699 /* SignUpUser.swift in Sources */,
+				B7A2C3571F718FC800A550C6 /* ConfirmVideoViewController.swift in Sources */,
 				B73ABCC21F56AD2600CA91A6 /* SettingsViewController.swift in Sources */,
 				B732FAA61E2D82FD005514CE /* User.swift in Sources */,
 				B7AE893B1F2C627500914699 /* ChangePasswordViewController.swift in Sources */,
 				B7AE893D1F2FE1E000914699 /* CustomCell.swift in Sources */,
 				B7EEB1351F42C22700F101C6 /* SetSkillsViewController.swift in Sources */,
+				B7A2C35B1F73728800A550C6 /* AdvancedSearchViewController.swift in Sources */,
 				B7D480171F1762430080E8C2 /* SetUpFreeTimeViewController.swift in Sources */,
 				B752D43B1F09E79800EAC75B /* NotificationCenterViewController.swift in Sources */,
 				B72834571E0B158D007CD400 /* CAGradientLayer.swift in Sources */,
-				B7EEB13B1F48F6AC00F101C6 /* SetLinkViewController.swift in Sources */,
 				B7097D931E108AEC00CA1C56 /* ProfilePageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

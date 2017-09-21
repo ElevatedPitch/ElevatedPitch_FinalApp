@@ -33,27 +33,57 @@ class SettingsViewController: UIViewController {
     
     }
     
-    
-    
-    func handleResetPassword() {
-        if (password1TextField.text == password2TextField.text && password1TextField.text != "") {
-        FIRAuth.auth()?.currentUser?.updatePassword(password2TextField.text!,  completion: { (error) in
-            
-            if (error != nil) {
-                let alert = UIAlertController(title: "Failure", message: "Could not update password", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-        })
-            let segueController = ProfilePageViewController()
-            present(segueController, animated: true, completion: nil)
-            
-        } else {
-            let alert = UIAlertController(title: "Failure", message: "Passwords don't match", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
-        }
+    func handleArchiveMove() {
+        let segueController = FeedController(nibName: nil, bundle: nil)
+        segueController.isArchived = true
+        present(segueController, animated: true, completion: nil)
     }
+    
+    
+    
+    func handleMoveToPasswordReset() {
+        let credential = FIREmailPasswordAuthProvider.credential(withEmail: (FIRAuth.auth()?.currentUser?.email)!, password: password1TextField.text!)
+        
+        FIRAuth.auth()?.currentUser?.reauthenticate(with: credential, completion: { (error) in
+            if (error != nil) {
+                let alert = UIAlertController(title: "Error", message: "Password incorrect", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
+                
+            } else {
+                let segueController = ChangePasswordViewController(nibName: nil, bundle: nil)
+                self.present(segueController, animated: true, completion: nil)
+            }
+        
+        })
+        
+        
+        
+        
+        
+    
+    }
+//    
+//    func handleResetPassword() {
+//        if (password1TextField.text == password2TextField.text && password1TextField.text != "") {
+//        FIRAuth.auth()?.currentUser?.updatePassword(password2TextField.text!,  completion: { (error) in
+//            
+//            if (error != nil) {
+//                let alert = UIAlertController(title: "Failure", message: "Could not update password", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+//                self.present(alert, animated: true, completion: nil)
+//            }
+//        })
+//            let segueController = ProfilePageViewController()
+//            present(segueController, animated: true, completion: nil)
+//            
+//        } else {
+//            let alert = UIAlertController(title: "Failure", message: "Passwords don't match", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+//            present(alert, animated: true, completion: nil)
+//        }
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         let titleLabel = UILabel()
@@ -77,7 +107,7 @@ class SettingsViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Settings"
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular" , size: 26)
+        titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular" , size: 32)
         titleLabel.textColor = UIColor.darkGray
         titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: self.view.bounds.height * 0.08).isActive = true
         
@@ -100,7 +130,7 @@ class SettingsViewController: UIViewController {
         password1TextField.centerYAnchor.constraint(equalTo: forgotPasswordLabel.bottomAnchor, constant: self.view.bounds.height * 0.08).isActive = true
         password1TextField.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.85).isActive = true
         password1TextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        password1TextField.placeholder = "Enter New Password..."
+        password1TextField.placeholder = "Enter Current Password..."
         password1TextField.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16)
         password1TextField.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
         password1TextField.layer.backgroundColor = UIColor.white.cgColor
@@ -109,34 +139,38 @@ class SettingsViewController: UIViewController {
         password1TextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)
         password1TextField.layer.cornerRadius = 5
         password1TextField.autocapitalizationType = .none
-        self.view.addSubview(password2TextField)
-        password2TextField.translatesAutoresizingMaskIntoConstraints = false
-        password2TextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        password2TextField.centerYAnchor.constraint(equalTo: password1TextField.bottomAnchor, constant: self.view.bounds.height * 0.08).isActive = true
-        password2TextField.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.85).isActive = true
-        password2TextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        password2TextField.placeholder = "Confirm new password..."
-        password2TextField.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 16)
-        password2TextField.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
-        password2TextField.layer.backgroundColor = UIColor.white.cgColor
-        password2TextField.layer.borderColor = UIColor.lightGray.cgColor
-        password2TextField.layer.borderWidth = 1
-        password2TextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)
-        password2TextField.layer.cornerRadius = 5
-        password2TextField.autocapitalizationType = .none
-
+        password1TextField.isSecureTextEntry = true
+       
+        
+        
         self.view.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         continueButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         continueButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.65).isActive = true
-        continueButton.topAnchor.constraint(equalTo: password2TextField.bottomAnchor, constant: self.view.bounds.height * 0.03).isActive = true
+        continueButton.topAnchor.constraint(equalTo: password1TextField.bottomAnchor, constant: self.view.bounds.height * 0.03).isActive = true
         continueButton.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
         continueButton.setTitle("Reset Password", for: .normal)
         continueButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
         continueButton.setTitleColor(UIColor.white, for: .normal)
         continueButton.layer.cornerRadius = 10
         continueButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
-        continueButton.addTarget(self, action: #selector(handleResetPassword), for: .touchUpInside)
+        continueButton.addTarget(self, action: #selector(handleMoveToPasswordReset), for: .touchUpInside)
+        
+        
+        let archiveButton = UIButton()
+        self.view.addSubview(archiveButton)
+        archiveButton.translatesAutoresizingMaskIntoConstraints = false
+        archiveButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        archiveButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.65).isActive = true
+        archiveButton.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: self.view.bounds.height * 0.03).isActive = true
+        archiveButton.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 0.05).isActive = true
+        archiveButton.setTitle("See Archive", for: .normal)
+        archiveButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+        archiveButton.setTitleColor(UIColor.white, for: .normal)
+        archiveButton.layer.cornerRadius = 10
+        archiveButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
+        archiveButton.addTarget(self, action: #selector(handleArchiveMove), for: .touchUpInside)
+        
         
         let logoutButton = UIButton()
         self.view.addSubview(logoutButton)
@@ -152,6 +186,13 @@ class SettingsViewController: UIViewController {
         logoutButton.backgroundColor = UIColor(red: 100/255, green: 149/255, blue: 237/255, alpha: 1)
         logoutButton.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
         // Do any additional setup after loading the view.
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
