@@ -103,11 +103,41 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func handleURL(sender: urlTap) {
-        if (sender.urlString != "") {
+        if (sender.urlString != "" && sender.urlString.contains("https://")) {
       openURL(url: sender.urlString)
         } else {
             let alert = UIAlertController(title: "Failure", message: "No link available. Feel free to add one in.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Upload", style: .default, handler: { (error) in
+            
+                let alert = UIAlertController(title: "Add in a link", message: nil, preferredStyle: .alert)
+                alert.addTextField(configurationHandler: { (textField) in
+                    
+                    textField.placeholder = "LinkedIn Link (include https://)"
+                    
+                    
+                })
+                alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (error) in
+                    
+                    let ref = FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!)
+                    if (alert.textFields?[0].text! != "") {
+                        let value = NSString(string: (alert.textFields?[0].text!)!)
+                        let upload = ["linkedInLink": value]
+                        ref.updateChildValues(upload)
+                        DispatchQueue.main.async {
+                            self.checkIfUserLoggedInAsStudent()
+                        }
+                    }
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
+
+
+            
+            }))
+            alert.addAction(UIAlertAction(title: "Find your profile link", style: .default, handler: { (error) in
+                    self.openURL(url: "https://www.linkedin.com/help/linkedin/answer/49315/finding-your-linkedin-public-profile-url?lang=en")
+                
+            }))
             present(alert, animated: true, completion: nil)
         }
     }
@@ -115,10 +145,8 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
         let passedURL = URL(string: url)
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(passedURL!, options: [:], completionHandler: nil)
-            print(passedURL, "This is the passdURL")
         } else {
             UIApplication.shared.openURL(passedURL!)
-            print(passedURL, "This is the passdURL")
 
         }
     }
@@ -195,7 +223,6 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
         do {
             try FIRAuth.auth()?.signOut()
         } catch let logoutError {
-            print(logoutError)
         }
         
         let segueController = LandingPageViewController()
@@ -310,6 +337,7 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
                         self.supplementalVideoURL3 = "AddIcon"
                     }
                     if (dictionary["linkedInLink"] as! String? != nil) {
+                        
                         self.linkedInTap.urlString = (dictionary["linkedInLink"] as! String?)!
                     }
                     if (dictionary["githubLink"] as! String? != nil) {
